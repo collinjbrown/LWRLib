@@ -9,7 +9,20 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(BASE_SRCS
+    "src/external/stb_image.cpp"
+    "src/external/stb_image.h"
+    "src/archtexture.cpp"
+    "src/archtexture.h"
+    "src/lwrl.cpp"
+    "src/lwrl.h"
     "src/main.cpp"
+    "src/polygons.h"
+    "src/renderer.cpp"
+    "src/renderer.h"
+    "src/shader.cpp"
+    "src/shader.h"
+    "src/texture.cpp"
+    "src/texture.h"
     )
 
 # Add source to this project's executable.
@@ -28,10 +41,9 @@ add_dependencies(LWRLib copy_assets)
 add_subdirectory(libs/glfw-3.3.8)
 add_subdirectory(libs/glad)
 add_subdirectory(libs/glm-0.9.9.8)
-add_subdirectory(libs/freetype-2.12.1)
 
 if(NOT DEFINED CMAKE_SUPPRESS_DEVELOPER_WARNINGS)
      set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS 1 CACHE INTERNAL "No dev warnings")
 endif()
 
-target_link_libraries(LWRLib glfw glad glm freetype)
+target_link_libraries(LWRLib glfw glad glm)

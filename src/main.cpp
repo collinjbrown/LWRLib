@@ -2,10 +2,16 @@
 //
 
 #include <iostream>
+#include "lwrl.h"
 
 int main(void)
 {
-    std::cout << "Hello world.";
+    LWRL* lwrl = new LWRL(1280, 720, "test");
 
-    return 0;
+    while (lwrl->Poll())
+    {
+        lwrl->Update();
+    }
+
+    lwrl->Terminate();
 }
