@@ -11,6 +11,4 @@ Texture::Texture(std::string file) : used(false), active(false), index(-1)
 
 	this->width = imageWidth;
 	this->height = imageHeight;
-
-	stbi_image_free(data);
 }

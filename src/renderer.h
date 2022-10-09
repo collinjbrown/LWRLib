@@ -19,6 +19,8 @@ struct Batch
 class Renderer
 {
 private:
+	bool init = false;
+
 	std::vector<Batch> batches;
 	Shader shader;
 
@@ -27,6 +29,8 @@ private:
 
 	Archtexture* archtexture;
 	std::vector<Texture*> textures;
+
+	int tris = 0;
 
 	GLuint VAO;
 	GLuint VBO;
@@ -37,9 +41,12 @@ private:
 	void ResetBuffers();
 
 public:
+	Texture* AddTexture(std::string file);
 	Texture* GetTexture(int index);
 
-	void RenderSprite(int x, int y, int z, Texture* texture);
+	void SetView(glm::mat4 view) { this->view = view; }
+
+	void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
 
 	void UpdateProjection(int width, int height, float zoom, float nearClip, float farClip);
 

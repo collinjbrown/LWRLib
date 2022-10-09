@@ -5,6 +5,16 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <corecrt_math_defines.h>
 
+void LWRL::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
+{
+	renderer->RenderSprite(pos, color, texture);
+}
+
+Texture* LWRL::AddTexture(std::string file)
+{
+	return renderer->AddTexture(file);
+}
+
 bool LWRL::Poll()
 {
 	/*
@@ -27,6 +37,11 @@ void LWRL::Update()
 		swaps the buffers.
 	*/
 
+	glm::vec3 cam = glm::vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+	glm::vec3 center = cam + glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+	renderer->SetView(glm::lookAt(cam, center, up));
+
 	renderer->UpdateProjection(width, height, zoom, nearClip, farClip);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -36,6 +51,7 @@ void LWRL::Update()
 
 	glfwSwapBuffers(window);
 	glfwPollEvents();
+	glCheckError();
 }
 
 void LWRL::Terminate()

@@ -21,6 +21,9 @@ struct Vertex
 	// Where along the x coordinate of the archtexture does
 	// this texture begin.
 	float textureStart;
+
+	float archWidth;
+	float archHeight;
 };
 
 struct Triangle
@@ -28,12 +31,6 @@ struct Triangle
 	Vertex topLeft;
 	Vertex bottomRight;
 	Vertex bottomLeft;
-};
-
-struct Quad
-{
-	Triangle left;
-	Triangle right;
 };
 
 #endif

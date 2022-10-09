@@ -11,6 +11,13 @@ void Renderer::UpdateProjection(int width, int height, float zoom, float nearCli
 	this->projection = glm::ortho(-halfWidth, halfWidth, -halfWidth, halfHeight, nearClip, farClip);
 }
 
+Texture* Renderer::AddTexture(std::string file)
+{
+	Texture* texture = new Texture(file);
+	textures.push_back(texture);
+	return texture;
+}
+
 Texture* Renderer::GetTexture(int index)
 {
 	if (index < textures.size() && index >= 0)
@@ -41,27 +48,18 @@ void Renderer::RepairTexture()
 	}
 
 	// Recreate the archtexture.
+	// Bind
 	glBindTexture(GL_TEXTURE_2D, archtexture->GetID());
 
-	const char* tmpData = "";
-	for (int x = 0; x < archtexture->GetWidth(); x++)
-	{
-		for (int y = 0; y < archtexture->GetHeight(); y++)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				tmpData += '0';
-			}
-		}
-	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, archtexture->GetWidth(), archtexture->GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, archtexture->GetWidth(), archtexture->GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, tmpData);
-
-	int w = 0;
+	// Refill the texture with the proper data.
 	int h = 0;
 	for (int i = 0; i < activeTextures.size(); i++)
 	{
-		glTexSubImage2D(GL_TEXTURE_2D, 0, w, h, activeTextures[i]->GetWidth(), activeTextures[i]->GetHeight(), GL_RGBA, GL_UNSIGNED_BYTE, activeTextures[i]->GetData());
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, h, activeTextures[i]->GetWidth(), activeTextures[i]->GetHeight(), GL_RGBA, GL_UNSIGNED_BYTE, activeTextures[i]->GetData());
+		activeTextures[i]->yIndex = h;
+		h += activeTextures[i]->GetHeight();
 	}
 
 	// Wrap & Filter Modes
@@ -102,10 +100,48 @@ void Renderer::ResetBuffers()
 	for (Batch& batch : batches) batch.index = 0;
 }
 
+void Renderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
+{
+	texture->active = true;
+	texture->used = true;
+
+	Batch& batch = batches[tris / Batch::MAX_TRIS];
+
+	const float right = pos.x + (texture->GetWidth() / 2.0f);
+	const float left = pos.x - (texture->GetWidth() / 2.0f);
+	const float top = pos.y + (texture->GetHeight() / 2.0f);
+	const float bottom = pos.y - (texture->GetHeight() / 2.0f);
+
+	const float r = color.r;
+	const float g = color.g;
+	const float b = color.b;
+	const float a = color.a;
+	
+	Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, 0.0, 0.0, texture->yIndex };
+	Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, 1.0, 0.0, texture->yIndex };
+	Vertex topLeft{ left, top, pos.z, r, g, b, a, 0.0, 1.0, texture->yIndex };
+	Vertex topRight{ right, top, pos.z, r, g, b, a, 1.0, 1.0, texture->yIndex };
+
+	batch.buffer[batch.index] = { bottomLeft, bottomRight, topLeft };
+	batch.index++;
+
+	batch.buffer[batch.index] = { bottomRight, topRight, topLeft };
+	batch.index++;
+
+	tris += 2;
+}
+
 void Renderer::Render()
 {
+	if (!init)
+	{
+		init = true;
+		RepairTexture();
+	}
+
 	shader.Use();
 	shader.SetMatrix("MVP", projection * view);
+	shader.SetVector2("vertArchSize", glm::vec2(archtexture->GetWidth(), archtexture->GetHeight()));
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, archtexture->GetID());
@@ -114,6 +150,8 @@ void Renderer::Render()
 	{
 		Flush(batches[i]);
 	}
+
+	ResetBuffers();
 }
 
 void Renderer::Terminate()
@@ -154,7 +192,7 @@ Renderer::Renderer() : batches(1), shader("assets/shaders/base.vert", "assets/sh
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, s));
 	glEnableVertexAttribArray(2);
 
-	// Texture Index
+	// Texture Start
 	glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, textureStart));
 	glEnableVertexAttribArray(3);
 

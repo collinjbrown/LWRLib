@@ -11,6 +11,7 @@
 #include <glm/glm.hpp>
 #include <string>
 
+#include "external/check_error.h"
 #include "renderer.h"
 
 class LWRL
@@ -23,7 +24,7 @@ private:
 
 
 	glm::vec2		mousePosition = glm::vec2(0.0f, 0.0f);
-	glm::vec3		cameraPosition = glm::vec3(900.0f, 500.0f, 300.0f);
+	glm::vec3		cameraPosition = glm::vec3(0.0f, 0.0f, 10.0f);
 
 	float			zoom = 0.16f;
 	float			zoomSpeed = 1.0f;
@@ -42,7 +43,10 @@ public:
 	void SetWidth(int width) { this->width = width; }
 	void SetHeight(int height) { this->height = height; }
 	void SetTitle(std::string title) { this->title = title; }
-	
+
+	void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
+	Texture* AddTexture(std::string file);
+
 	bool Poll();
 	void Update();
 	void Terminate();
