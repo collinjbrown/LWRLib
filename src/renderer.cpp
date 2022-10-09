@@ -8,7 +8,7 @@ void Renderer::UpdateProjection(int width, int height, float zoom, float nearCli
 	float halfWidth = (width / 2.0f) * zoom;
 	float halfHeight = (height / 2.0f) * zoom;
 
-	this->projection = glm::ortho(-halfWidth, halfWidth, -halfWidth, halfHeight, nearClip, farClip);
+	this->projection = glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, nearClip, farClip);
 }
 
 Texture* Renderer::AddTexture(std::string file)
