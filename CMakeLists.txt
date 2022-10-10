@@ -17,6 +17,7 @@ set(BASE_SRCS
     "src/archtexture.h"
     "src/hub.cpp"
     "src/hub.h"
+    "src/inputhandler.h"
     "src/main.cpp"
     "src/polygons.h"
     "src/renderer.cpp"
