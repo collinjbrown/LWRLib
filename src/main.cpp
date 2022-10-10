@@ -21,14 +21,18 @@ int main(void)
         {
             for (int y = 0; y < 100; y++)
             {
+                Texture* t = t0;
+                // if (rand() % 100 > 50) t = t1;
+
+                float tX = x * t->GetWidth();
+                float tY = y * t->GetWidth();
                 float r = 1.0f; // static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
                 float g = 1.0f; //  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
                 float b = 1.0f; //  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 
-                Texture* t = t0;
-                // if (rand() % 100 > 50) t = t1;
 
-                lwrl->RenderSprite(glm::vec3(x * t->GetWidth(), y * t->GetHeight(), 0), glm::vec4(r, g, b, 1.0), t);
+                lwrl->RenderSprite(glm::vec3(tX, tY, 0), glm::vec4(r, g, b, 1.0), t);
+
             }
         }
 

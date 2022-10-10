@@ -7,14 +7,17 @@
 
 void LWRL::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 {
-	renderer->RenderSprite(pos, color, texture);
+	if (pos.x + texture->GetWidth() >= windowLeft && pos.x - texture->GetWidth() <= windowRight &&
+		pos.y + texture->GetHeight() >= windowBottom && pos.y - texture->GetHeight() <= windowTop)
+	{
+		renderer->RenderSprite(pos, color, texture);
+	}
 }
 
 Texture* LWRL::AddTexture(std::string file)
 {
 	return renderer->AddTexture(file);
 }
-
 
 void LWRL::CheckFPS()
 {
@@ -33,6 +36,14 @@ void LWRL::CheckFPS()
 
 		std::cout << "FPS: " + std::to_string(fps) << std::endl;
 	}
+}
+
+void LWRL::UpdateBorders()
+{
+	windowLeft = cameraPosition.x - ((width / 2.0f) * zoom);
+	windowRight = cameraPosition.x + ((width / 2.0f) * zoom);
+	windowBottom = cameraPosition.y - ((height / 2.0f) * zoom);
+	windowTop = cameraPosition.y + ((height / 2.0f) * zoom);
 }
 
 bool LWRL::Poll()
@@ -58,6 +69,7 @@ void LWRL::Update()
 	*/
 
 	CheckFPS();
+	UpdateBorders();
 
 	glm::vec3 cam = glm::vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
 	glm::vec3 center = cam + glm::vec3(0.0f, 0.0f, -1.0f);

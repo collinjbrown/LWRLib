@@ -1,6 +1,6 @@
 /*
-	Desc:	The real meat and potatoes of LWRLib—this is what the user will instantiate and call
-			in order to interface with the library.
+	Desc:	The interface of LWRLib—this is what the user will instantiate and call
+			in order to interact with the library.
 */
 
 #ifndef LWRL_H
@@ -31,13 +31,24 @@ private:
 	glm::vec3		cameraPosition = glm::vec3(1600.0f, 1600.0f, 10.0f);
 
 	float			zoom = 2.0f;
+	float			minZoom = 0.1f;
+	float			maxZoom = 2.0f;
 	float			zoomSpeed = 1.0f;
+
+	float			windowLeft = 0.0f;
+	float			windowRight = 0.0f;
+	float			windowTop = 0.0f;
+	float			windowBottom = 0.0f;
+
 	float			cameraSpeed = 80.0f;
 
 	float nearClip = 0.1f;
 	float farClip = 15000.0f;
 
 	Renderer*		renderer;
+
+	void CheckFPS();
+	void UpdateBorders();
 
 public:
 	int GetWidth() { return width; }
@@ -48,10 +59,14 @@ public:
 	void SetHeight(int height) { this->height = height; }
 	void SetTitle(std::string title) { this->title = title; }
 
+	float GetZoom() { return zoom; }
+	glm::vec3 GetCameraPosition() { return cameraPosition; }
+
+	glm::vec4 GetWindowBorders() { return glm::vec4(windowLeft, windowRight, windowTop, windowBottom); }
+
 	void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
 	Texture* AddTexture(std::string file);
 
-	void CheckFPS();
 
 	bool Poll();
 	void Update();
