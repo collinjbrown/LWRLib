@@ -1,37 +1,40 @@
 #ifndef POLYGONS_H
 #define POLYGONS_H
 
-struct Vertex
+namespace LWRL
 {
-	// Location
-	float x;
-	float y;
-	float z;
+	struct Vertex
+	{
+		// Location
+		float x;
+		float y;
+		float z;
 
-	// Color
-	float r;
-	float g;
-	float b;
-	float a;
+		// Color
+		float r;
+		float g;
+		float b;
+		float a;
 
-	// The s & t coordinates on the texture.
-	float s;
-	float t;
+		// The s & t coordinates on the texture.
+		float s;
+		float t;
 
-	// Texture width and height
-	float w;
-	float h;
+		// Texture width and height
+		float w;
+		float h;
 
-	// Where along the x coordinate of the archtexture does
-	// this texture begin.
-	float d;
-};
+		// Where along the x coordinate of the archtexture does
+		// this texture begin.
+		float d;
+	};
 
-struct Triangle
-{
-	Vertex topLeft;
-	Vertex bottomRight;
-	Vertex bottomLeft;
-};
+	struct Triangle
+	{
+		Vertex topLeft;
+		Vertex bottomRight;
+		Vertex bottomLeft;
+	};
+}
 
 #endif

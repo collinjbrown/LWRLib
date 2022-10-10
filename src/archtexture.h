@@ -6,23 +6,26 @@
 
 #include "texture.h"
 
-class Archtexture
+namespace LWRL
 {
-private:
-	GLint			id;
-	unsigned int	width;
-	unsigned int	height;
+	class Archtexture
+	{
+	private:
+		GLint			id;
+		unsigned int	width;
+		unsigned int	height;
 
-public:
-	GLint GetID() { return id; }
-	
-	unsigned int GetWidth() { return width; }
-	unsigned int GetHeight() { return height; }
+	public:
+		GLint GetID() { return id; }
 
-	void AddWidth(unsigned int w) { width = std::max(w, width); }
-	void AddHeight(unsigned int h) { height += h; }
-	
-	void Reset();
-};
+		unsigned int GetWidth() { return width; }
+		unsigned int GetHeight() { return height; }
+
+		void AddWidth(unsigned int w) { width = std::max(w, width); }
+		void AddHeight(unsigned int h) { height += h; }
+
+		void Reset();
+	};
+}
 
 #endif

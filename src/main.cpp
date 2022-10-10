@@ -4,14 +4,14 @@
 #include <iostream>
 #include <filesystem>
 
-#include "lwrl.h"
+#include "hub.h"
 
 int main(void)
 {
-    LWRL* lwrl = new LWRL(1280, 720, "test");
+    LWRL::Hub* lwrl = new LWRL::Hub(1280, 720, "test");
 
-    Texture* t0 = lwrl->AddTexture("assets/sprites/test.png");
-    Texture* t1 = lwrl->AddTexture("assets/sprites/test2.png");
+    LWRL::Texture* t0 = lwrl->AddTexture("assets/sprites/test.png");
+    LWRL::Texture* t1 = lwrl->AddTexture("assets/sprites/test2.png");
 
     srand(time(NULL));
 
@@ -21,7 +21,7 @@ int main(void)
         {
             for (int y = 0; y < 100; y++)
             {
-                Texture* t = t0;
+                LWRL::Texture* t = t0;
                 // if (rand() % 100 > 50) t = t1;
 
                 float tX = x * t->GetWidth();

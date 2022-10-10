@@ -3,24 +3,27 @@
 
 #include <string>
 
-class Texture
+namespace LWRL
 {
-private:
-	int					index;
-	unsigned int		width;
-	unsigned int		height;
-	unsigned char*		data;
+	class Texture
+	{
+	private:
+		int					index;
+		unsigned int		width;
+		unsigned int		height;
+		unsigned char* data;
 
-public:
-	bool				used;
-	bool				active;
-	unsigned int		yIndex;
+	public:
+		bool				used;
+		bool				active;
+		unsigned int		yIndex;
 
-	unsigned int GetWidth() { return width; }
-	unsigned int GetHeight() { return height; }
-	unsigned char* GetData() { return data; }
+		unsigned int GetWidth() { return width; }
+		unsigned int GetHeight() { return height; }
+		unsigned char* GetData() { return data; }
 
-	Texture(std::string file);
-};
+		Texture(std::string file);
+	};
+}
 
 #endif

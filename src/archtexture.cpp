@@ -1,7 +1,10 @@
 #include "archtexture.h"
 
-void Archtexture::Reset()
+namespace LWRL
 {
-	width = 0;
-	height = 0;
+	void Archtexture::Reset()
+	{
+		width = 0;
+		height = 0;
+	}
 }
