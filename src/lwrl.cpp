@@ -15,6 +15,26 @@ Texture* LWRL::AddTexture(std::string file)
 	return renderer->AddTexture(file);
 }
 
+
+void LWRL::CheckFPS()
+{
+	fpsCount++;
+
+	float deltaTime = glfwGetTime() - lastTime;
+	lastTime = glfwGetTime();
+
+	sumTime += deltaTime;
+
+	if (sumTime >= 1.0f)
+	{
+		fps = fpsCount;
+		fpsCount = 0;
+		sumTime = 0.0f;
+
+		std::cout << "FPS: " + std::to_string(fps) << std::endl;
+	}
+}
+
 bool LWRL::Poll()
 {
 	/*
@@ -36,6 +56,8 @@ void LWRL::Update()
 		to need to use. It just clears the window, renders the scene, and
 		swaps the buffers.
 	*/
+
+	CheckFPS();
 
 	glm::vec3 cam = glm::vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
 	glm::vec3 center = cam + glm::vec3(0.0f, 0.0f, -1.0f);
@@ -72,6 +94,7 @@ LWRL::LWRL(int width, int height, std::string title)
 	this->width = width;
 	this->height = height;
 	this->title = title;
+	this->lastTime = glfwGetTime();
 
 	// Now we init glfw and freak out if it doesn't work.
 	if (!glfwInit())

@@ -98,6 +98,8 @@ void Renderer::ResetBuffers()
 	if (needsPreparing) RepairTexture();
 
 	for (Batch& batch : batches) batch.index = 0;
+
+	tris = 0;
 }
 
 void Renderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
@@ -105,7 +107,13 @@ void Renderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	texture->active = true;
 	texture->used = true;
 
-	Batch& batch = batches[tris / Batch::MAX_TRIS];
+	int bNum = tris / Batch::MAX_TRIS;
+	if (bNum + 1 > batches.size())
+	{
+		batches.push_back(*(new Batch()));
+	}
+
+	Batch& batch = batches[bNum];
 
 	const float right = pos.x + (texture->GetWidth() / 2.0f);
 	const float left = pos.x - (texture->GetWidth() / 2.0f);
@@ -117,10 +125,14 @@ void Renderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	const float b = color.b;
 	const float a = color.a;
 	
-	Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, 0.0, 0.0, texture->yIndex };
-	Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, 1.0, 0.0, texture->yIndex };
-	Vertex topLeft{ left, top, pos.z, r, g, b, a, 0.0, 1.0, texture->yIndex };
-	Vertex topRight{ right, top, pos.z, r, g, b, a, 1.0, 1.0, texture->yIndex };
+	const float s = texture->yIndex;
+	const float w = texture->GetWidth();
+	const float h = texture->GetHeight();
+
+	Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, 0.0, 0.0, w, h, s };
+	Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, 1.0, 0.0, w, h, s };
+	Vertex topLeft{ left, top, pos.z, r, g, b, a, 0.0, 1.0, w, h, s };
+	Vertex topRight{ right, top, pos.z, r, g, b, a, 1.0, 1.0, w, h, s };
 
 	batch.buffer[batch.index] = { bottomLeft, bottomRight, topLeft };
 	batch.index++;
@@ -192,9 +204,13 @@ Renderer::Renderer() : batches(1), shader("assets/shaders/base.vert", "assets/sh
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, s));
 	glEnableVertexAttribArray(2);
 
-	// Texture Start
-	glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, textureStart));
+	// Texture Dimensions
+	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, w));
 	glEnableVertexAttribArray(3);
+
+	// Texture Start
+	glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, d));
+	glEnableVertexAttribArray(4);
 
 	unsigned int indices[Batch::MAX_TRIS * 3];
 	for (int i = 0; i < Batch::MAX_TRIS; i++)

@@ -2,8 +2,9 @@
 
 in vec4 rgbaColor;
 in vec2 texCoords;
-in float texStart;
+in vec2 texDimens;
 in vec2 archSize;
+in float texStart;
 
 out vec4 color;
 
@@ -11,7 +12,8 @@ uniform sampler2D batchTextures[32];
 
 void main()
 {
-    // vec2 coords = vec2(texStart / archSize
+    float sy = texStart + ((texDimens.y / archSize.y) * texCoords.y);
+    float sx = (texDimens.x / archSize.x) * texCoords.x;
 
-    color = rgbaColor * texture(batchTextures[0], texCoords);
+    color = rgbaColor * texture(batchTextures[0], vec2(sx, sy));
 }

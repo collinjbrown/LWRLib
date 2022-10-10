@@ -18,12 +18,13 @@ struct Vertex
 	float s;
 	float t;
 
+	// Texture width and height
+	float w;
+	float h;
+
 	// Where along the x coordinate of the archtexture does
 	// this texture begin.
-	float textureStart;
-
-	float archWidth;
-	float archHeight;
+	float d;
 };
 
 struct Triangle

@@ -22,11 +22,15 @@ private:
 	int				height;
 	std::string		title;
 
+	unsigned int	fps = 0;
+	unsigned int	fpsCount = 0;
+	float			lastTime;
+	float			sumTime = 0.0f;
 
 	glm::vec2		mousePosition = glm::vec2(0.0f, 0.0f);
 	glm::vec3		cameraPosition = glm::vec3(0.0f, 0.0f, 10.0f);
 
-	float			zoom = 0.16f;
+	float			zoom = 1.0f;
 	float			zoomSpeed = 1.0f;
 	float			cameraSpeed = 80.0f;
 
@@ -46,6 +50,8 @@ public:
 
 	void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
 	Texture* AddTexture(std::string file);
+
+	void CheckFPS();
 
 	bool Poll();
 	void Update();
