@@ -12,7 +12,7 @@ uniform sampler2D batchTextures[32];
 
 void main()
 {
-    float sy = texStart + ((texDimens.y / archSize.y) * texCoords.y);
+    float sy = ((texStart / archSize.y) + (texDimens.y / archSize.y)) * texCoords.y;
     float sx = (texDimens.x / archSize.x) * texCoords.x;
 
     color = rgbaColor * texture(batchTextures[0], vec2(sx, sy));

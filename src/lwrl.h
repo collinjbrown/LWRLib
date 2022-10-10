@@ -28,9 +28,9 @@ private:
 	float			sumTime = 0.0f;
 
 	glm::vec2		mousePosition = glm::vec2(0.0f, 0.0f);
-	glm::vec3		cameraPosition = glm::vec3(0.0f, 0.0f, 10.0f);
+	glm::vec3		cameraPosition = glm::vec3(1600.0f, 1600.0f, 10.0f);
 
-	float			zoom = 1.0f;
+	float			zoom = 2.0f;
 	float			zoomSpeed = 1.0f;
 	float			cameraSpeed = 80.0f;
 
