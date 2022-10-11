@@ -13,7 +13,9 @@ int main(void)
     LWRL::Texture* t0 = lwrl->AddTexture("assets/sprites/test.png");
     LWRL::Texture* t1 = lwrl->AddTexture("assets/sprites/test2.png");
 
-    srand(time(NULL));
+    // srand(time(NULL));
+
+    // lwrl->AddFilter("red", glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), 0.5f);
 
     while (lwrl->Poll())
     {
@@ -21,13 +23,6 @@ int main(void)
         {
             for (int y = 0; y < 32; y++)
             {
-                // LWRL::Texture* t = t0;
-                // if (rand() % 100 > 50) t = t1;
-
-                /*float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                float g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);*/
-
                 lwrl->RenderSprite(glm::vec3(x * t0->GetWidth(), y * t0->GetWidth(), -y), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), t0);
             }
         }

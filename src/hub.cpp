@@ -7,6 +7,23 @@
 
 namespace LWRL
 {
+	std::vector<UTIL::Filter>::iterator Hub::FindFilter(std::string name)
+	{
+		std::vector<UTIL::Filter>::iterator iter = filters.begin();
+
+		for (iter; iter < filters.end(); iter++) { if (iter->name == name) { return iter; } }
+
+		std::cout << "No filter was found by the name: " + name + "." << std::endl;
+		return iter;
+	}
+
+	void Hub::RemoveFilter(std::string name)
+	{
+		std::vector<UTIL::Filter>::iterator iter = FindFilter(name);
+
+		if (iter != filters.end()) { filters.erase(iter); }
+	}
+
 	void Hub::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
 		int depthDifference = (((int)cameraPosition.z - 9) - (int)pos.z);
@@ -16,6 +33,7 @@ namespace LWRL
 			depthDifference <= fadeDepth && depthDifference >= 0)
 		{
 			if (fadeDepth != 0 && depthDifference != 0) color = UTIL::ColorLerp(color, fadeColor, (depthDifference / (float)fadeDepth));
+			for (int i = 0; i < filters.size(); i++) { color = UTIL::ColorLerp(color, filters[i].color, filters[i].strength); }
 
 			renderer->RenderSprite(pos, color, texture);
 		}
