@@ -8,10 +8,10 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 #include <string>
 
 #include "external/check_error.h"
+#include "util.h"
 #include "renderer.h"
 
 namespace LWRL
@@ -45,8 +45,11 @@ namespace LWRL
 
 		float			cameraSpeed = 80.0f;
 
-		float nearClip = 0.1f;
-		float farClip = 15000.0f;
+		float			nearClip = 0.1f;
+		float			farClip = 15000.0f;
+
+		unsigned int	fadeDepth = 20;
+		glm::vec4		fadeColor = glm::vec4(0.5f, 0.5f, 0.5f, 0.1f);
 
 		Renderer* renderer;
 

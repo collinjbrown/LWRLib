@@ -21,17 +21,14 @@ int main(void)
         {
             for (int y = 0; y < 32; y++)
             {
-                for (int z = 0; z < 32; z++)
-                {
-                    // LWRL::Texture* t = t0;
-                    // if (rand() % 100 > 50) t = t1;
+                // LWRL::Texture* t = t0;
+                // if (rand() % 100 > 50) t = t1;
 
-                    /*float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                    float g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                    float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);*/
+                /*float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                float g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);*/
 
-                    lwrl->RenderSprite(glm::vec3(x * t0->GetWidth(), y * t0->GetWidth(), -z), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), t0);
-                }
+                lwrl->RenderSprite(glm::vec3(x * t0->GetWidth(), y * t0->GetWidth(), -y), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), t0);
             }
         }
 

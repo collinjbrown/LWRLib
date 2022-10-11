@@ -26,6 +26,8 @@ set(BASE_SRCS
     "src/shader.h"
     "src/texture.cpp"
     "src/texture.h"
+    "src/util.cpp"
+    "src/util.h"
     )
 
 # Add source to this project's executable.

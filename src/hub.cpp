@@ -9,11 +9,14 @@ namespace LWRL
 {
 	void Hub::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
+		int depthDifference = (((int)cameraPosition.z - 9) - (int)pos.z);
+
 		if (pos.x + texture->GetWidth() >= windowLeft && pos.x - texture->GetWidth() <= windowRight &&
 			pos.y + texture->GetHeight() >= windowBottom && pos.y - texture->GetHeight() <= windowTop &&
-			pos.z == 0)
+			depthDifference <= fadeDepth && depthDifference >= 0)
 		{
-			test++;
+			if (fadeDepth != 0 && depthDifference != 0) color = UTIL::ColorLerp(color, fadeColor, (depthDifference / (float)fadeDepth));
+
 			renderer->RenderSprite(pos, color, texture);
 		}
 	}
