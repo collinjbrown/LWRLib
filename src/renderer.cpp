@@ -1,6 +1,7 @@
 #include "renderer.h"
 
 #include <iostream>
+#include <filesystem>
 #include <glm/ext/matrix_clip_space.hpp>
 
 namespace LWRL
@@ -110,7 +111,7 @@ namespace LWRL
 		texture->used = true;
 
 		int bNum = tris / Batch::MAX_TRIS;
-		if (bNum + 1 > batches.size())
+		if (static_cast<unsigned long long>(bNum) + 1 > batches.size())
 		{
 			batches.push_back(*(new Batch()));
 		}

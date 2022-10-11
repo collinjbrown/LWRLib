@@ -17,22 +17,21 @@ int main(void)
 
     while (lwrl->Poll())
     {
-        for (int x = 0; x < 100; x++)
+        for (int x = 0; x < 32; x++)
         {
-            for (int y = 0; y < 100; y++)
+            for (int y = 0; y < 32; y++)
             {
-                LWRL::Texture* t = t0;
-                // if (rand() % 100 > 50) t = t1;
+                for (int z = 0; z < 32; z++)
+                {
+                    // LWRL::Texture* t = t0;
+                    // if (rand() % 100 > 50) t = t1;
 
-                float tX = x * t->GetWidth();
-                float tY = y * t->GetWidth();
-                float r = 1.0f; // static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                float g = 1.0f; //  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-                float b = 1.0f; //  static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                    /*float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                    float g = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                    float b = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);*/
 
-
-                lwrl->RenderSprite(glm::vec3(tX, tY, 0), glm::vec4(r, g, b, 1.0), t);
-
+                    lwrl->RenderSprite(glm::vec3(x * t0->GetWidth(), y * t0->GetWidth(), -z), glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), t0);
+                }
             }
         }
 

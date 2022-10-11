@@ -10,8 +10,10 @@ namespace LWRL
 	void Hub::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
 		if (pos.x + texture->GetWidth() >= windowLeft && pos.x - texture->GetWidth() <= windowRight &&
-			pos.y + texture->GetHeight() >= windowBottom && pos.y - texture->GetHeight() <= windowTop)
+			pos.y + texture->GetHeight() >= windowBottom && pos.y - texture->GetHeight() <= windowTop &&
+			pos.z == 0)
 		{
+			test++;
 			renderer->RenderSprite(pos, color, texture);
 		}
 	}
@@ -84,6 +86,9 @@ namespace LWRL
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		renderer->Render();
+
+		// std::cout << "Count: " + std::to_string(test) << std::endl;
+		test = 0;
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

@@ -19,9 +19,10 @@ namespace LWRL
 	class Hub
 	{
 	private:
-		GLFWwindow* window;
-		int				width;
-		int				height;
+		int				test = 0;
+		GLFWwindow*		window;
+		unsigned int	width;
+		unsigned int	height;
 		std::string		title;
 
 		unsigned int	fps = 0;
@@ -30,9 +31,9 @@ namespace LWRL
 		float			sumTime = 0.0f;
 
 		glm::vec2		mousePosition = glm::vec2(0.0f, 0.0f);
-		glm::vec3		cameraPosition = glm::vec3(1600.0f, 1600.0f, 10.0f);
+		glm::vec3		cameraPosition = glm::vec3(512.0f, 512.0f, 10.0f);
 
-		float			zoom = 2.0f;
+		float			zoom = 1.5f;
 		float			minZoom = 0.1f;
 		float			maxZoom = 2.0f;
 		float			zoomSpeed = 1.0f;
