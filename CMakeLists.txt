@@ -25,7 +25,6 @@ add_library(LWRLib SHARED
     "src/util.cpp"
     "src/util.h")
 
-
 add_subdirectory(libs/glfw-3.3.8)
 add_subdirectory(libs/glad)
 add_subdirectory(libs/glm-0.9.9.8)
