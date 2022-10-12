@@ -16,10 +16,11 @@ namespace LWRL
 
 	struct InputSettings
 	{
-		float				cameraSpeed = 1.0f;
+		float				cameraSpeedXY = 500.0f;
+		float				cameraSpeedZ = 10.0f;
 		float				minZoom = 0.1f;
 		float				maxZoom = 2.0f;
-		float				zoomSpeed = 0.001f;
+		float				zoomSpeed = 0.8f;
 	};
 
 	class InputHandler
@@ -31,6 +32,8 @@ namespace LWRL
 		int moveDownKey = GLFW_KEY_S;
 		int moveRightKey = GLFW_KEY_D;
 		int moveLeftKey = GLFW_KEY_A;
+		int moveInKey = GLFW_KEY_E;
+		int moveOutKey = GLFW_KEY_Q;
 
 		int zoomInKey = GLFW_KEY_KP_ADD;
 		int zoomOutKey = GLFW_KEY_KP_SUBTRACT;

@@ -48,19 +48,26 @@ namespace LWRL
 	{
 		fpsCount++;
 
-		float deltaTime = glfwGetTime() - lastTime;
-		lastTime = glfwGetTime();
+		float deltaTime = glfwGetTime() - lastTimeFPS;
+		lastTimeFPS = glfwGetTime();
 
-		sumTime += deltaTime;
+		sumTimeFPS += deltaTime;
 
-		if (sumTime >= 1.0f)
+		if (sumTimeFPS >= 1.0f)
 		{
 			fps = fpsCount;
 			fpsCount = 0;
-			sumTime = 0.0f;
+			sumTimeFPS = 0.0f;
 
 			std::cout << "FPS: " + std::to_string(fps) << std::endl;
 		}
+	}
+
+	float Hub::GetDeltaTime()
+	{
+		float dT = glfwGetTime() - lastTimeDT;
+		lastTimeDT = glfwGetTime();
+		return dT;
 	}
 
 	void Hub::UpdateBorders()
@@ -93,7 +100,7 @@ namespace LWRL
 			swaps the buffers.
 		*/
 
-		float deltaTime = 1.0f;
+		float deltaTime = GetDeltaTime();
 
 		CheckFPS();
 		UpdateBorders();
@@ -139,7 +146,8 @@ namespace LWRL
 		this->width = width;
 		this->height = height;
 		this->title = title;
-		this->lastTime = glfwGetTime();
+		this->lastTimeFPS = glfwGetTime();
+		this->lastTimeDT = glfwGetTime();
 
 		// Now we init glfw and freak out if it doesn't work.
 		if (!glfwInit())

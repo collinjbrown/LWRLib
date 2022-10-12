@@ -11,7 +11,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(BASE_SRCS
     "src/external/stb_image.cpp"
     "src/external/stb_image.h"
-    "src/archtexture.cpp"
     "src/archtexture.h"
     "src/hub.cpp"
     "src/hub.h"

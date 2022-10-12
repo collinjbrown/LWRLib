@@ -24,7 +24,11 @@ namespace LWRL
 		void AddWidth(unsigned int w) { width = std::max(w, width); }
 		void AddHeight(unsigned int h) { height += h; }
 
-		void Reset();
+		void Reset()
+		{
+			width = 0;
+			height = 0;
+		}
 	};
 }
 

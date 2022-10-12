@@ -94,6 +94,11 @@ namespace LWRL
 				t->active = false;
 				needsPreparing = true;
 			}
+			else if (t->used && !t->active)
+			{
+				t->active = true;
+				needsPreparing = true;
+			}
 
 			t->used = false;
 		}
@@ -107,7 +112,6 @@ namespace LWRL
 
 	void Renderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
-		texture->active = true;
 		texture->used = true;
 
 		int bNum = tris / Batch::MAX_TRIS;

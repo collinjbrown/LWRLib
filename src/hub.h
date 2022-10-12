@@ -28,8 +28,10 @@ namespace LWRL
 
 		unsigned int		fps = 0;
 		unsigned int		fpsCount = 0;
-		float				lastTime;
-		float				sumTime = 0.0f;
+		float				lastTimeFPS;
+		float				sumTimeFPS = 0.0f;
+
+		float				lastTimeDT;
 
 		InputSettings*		inputSettings;
 		InputStates*		inputStates;
@@ -51,6 +53,7 @@ namespace LWRL
 		InputHandler*					inputHandler;
 
 		void CheckFPS();
+		float GetDeltaTime();
 		void UpdateBorders();
 
 	public:
