@@ -11,9 +11,9 @@
 #include <string>
 #include <map>
 
-#include "external/check_error.h"
 #include "util.h"
 #include "renderer.h"
+#include "inputhandler.h"
 
 namespace LWRL
 {
@@ -31,20 +31,13 @@ namespace LWRL
 		float				lastTime;
 		float				sumTime = 0.0f;
 
-		glm::vec2			mousePosition = glm::vec2(0.0f, 0.0f);
-		glm::vec3			cameraPosition = glm::vec3(512.0f, 512.0f, 10.0f);
-
-		float				zoom = 1.5f;
-		float				minZoom = 0.1f;
-		float				maxZoom = 2.0f;
-		float				zoomSpeed = 1.0f;
+		InputSettings*		inputSettings;
+		InputStates*		inputStates;
 
 		float				windowLeft = 0.0f;
 		float				windowRight = 0.0f;
 		float				windowTop = 0.0f;
 		float				windowBottom = 0.0f;
-
-		float				cameraSpeed = 80.0f;
 
 		float				nearClip = 0.1f;
 		float				farClip = 15000.0f;
@@ -55,6 +48,7 @@ namespace LWRL
 
 		std::vector<UTIL::Filter>		filters;
 		Renderer*						renderer;
+		InputHandler*					inputHandler;
 
 		void CheckFPS();
 		void UpdateBorders();
@@ -68,8 +62,8 @@ namespace LWRL
 		void SetHeight(int height) { this->height = height; }
 		void SetTitle(std::string title) { this->title = title; }
 
-		float GetZoom() { return zoom; }
-		glm::vec3 GetCameraPosition() { return cameraPosition; }
+		float GetZoom() { return inputStates->zoom; }
+		glm::vec3 GetCameraPosition() { return inputStates->cameraPosition; }
 
 		glm::vec4 GetWindowBorders() { return glm::vec4(windowLeft, windowRight, windowTop, windowBottom); }
 

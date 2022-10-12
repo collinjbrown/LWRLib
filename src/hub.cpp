@@ -26,7 +26,7 @@ namespace LWRL
 
 	void Hub::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
-		int depthDifference = (((int)cameraPosition.z - 9) - (int)pos.z);
+		int depthDifference = (((int)GetCameraPosition().z - 9) - (int)pos.z);
 
 		if (pos.x + texture->GetWidth() >= windowLeft && pos.x - texture->GetWidth() <= windowRight &&
 			pos.y + texture->GetHeight() >= windowBottom && pos.y - texture->GetHeight() <= windowTop &&
@@ -65,10 +65,10 @@ namespace LWRL
 
 	void Hub::UpdateBorders()
 	{
-		windowLeft = cameraPosition.x - ((width / 2.0f) * zoom);
-		windowRight = cameraPosition.x + ((width / 2.0f) * zoom);
-		windowBottom = cameraPosition.y - ((height / 2.0f) * zoom);
-		windowTop = cameraPosition.y + ((height / 2.0f) * zoom);
+		windowLeft = GetCameraPosition().x - ((width / 2.0f) * GetZoom());
+		windowRight = GetCameraPosition().x + ((width / 2.0f) * GetZoom());
+		windowBottom = GetCameraPosition().y - ((height / 2.0f) * GetZoom());
+		windowTop = GetCameraPosition().y + ((height / 2.0f) * GetZoom());
 	}
 
 	bool Hub::Poll()
@@ -93,27 +93,27 @@ namespace LWRL
 			swaps the buffers.
 		*/
 
+		float deltaTime = 1.0f;
+
 		CheckFPS();
 		UpdateBorders();
 
-		glm::vec3 cam = glm::vec3(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+		inputHandler->Update(inputSettings, inputStates, deltaTime);
+
+		glm::vec3 cam = GetCameraPosition();
 		glm::vec3 center = cam + glm::vec3(0.0f, 0.0f, -1.0f);
 		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 		renderer->SetView(glm::lookAt(cam, center, up));
 
-		renderer->UpdateProjection(width, height, zoom, nearClip, farClip);
+		renderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);
 
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		renderer->Render();
 
-		// std::cout << "Count: " + std::to_string(test) << std::endl;
-		test = 0;
-
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-		glCheckError();
 	}
 
 	void Hub::Terminate()
@@ -124,6 +124,11 @@ namespace LWRL
 		*/
 
 		renderer->Terminate();
+		inputHandler->Terminate();
+
+		delete inputSettings;
+		delete inputStates;
+
 		glfwTerminate();
 		delete this;
 	}
@@ -172,7 +177,11 @@ namespace LWRL
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		// And lastly prepare the renderer.
+		// And lastly prepare the renderer and input handler.
 		renderer = new Renderer();
+		inputHandler = new InputHandler(window);
+
+		inputSettings = new InputSettings();
+		inputStates = new InputStates();
 	}
 }

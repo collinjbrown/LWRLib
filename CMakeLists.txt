@@ -9,14 +9,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(BASE_SRCS
-    "src/external/check_error.cpp"
-    "src/external/check_error.h"
     "src/external/stb_image.cpp"
     "src/external/stb_image.h"
     "src/archtexture.cpp"
     "src/archtexture.h"
     "src/hub.cpp"
     "src/hub.h"
+    "src/inputhandler.cpp"
     "src/inputhandler.h"
     "src/main.cpp"
     "src/polygons.h"
