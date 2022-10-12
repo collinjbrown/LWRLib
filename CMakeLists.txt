@@ -25,6 +25,11 @@ add_library(LWRLib SHARED
     "src/util.cpp"
     "src/util.h")
 
+
+add_subdirectory(libs/glfw-3.3.8)
+add_subdirectory(libs/glad)
+add_subdirectory(libs/glm-0.9.9.8)
+
 target_include_directories(LWRLib PRIVATE .)
 set_target_properties(LWRLib PROPERTIES VERSION 0.1)
 
