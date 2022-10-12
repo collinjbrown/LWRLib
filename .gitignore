@@ -3,10 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# Lib Stuff
-/libs/CMakeFiles
-/libs/src
-/libs/cmake_uninstall.cmake
+# Static Libraries
+libs/
 
 # User-specific files
 *.rsuser
