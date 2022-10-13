@@ -13,14 +13,34 @@ namespace LWRL
 		bool zoomIn = (glfwGetKey(window, zoomInKey) == GLFW_PRESS);
 		bool zoomOut = ((glfwGetKey(window, zoomOutKey) == GLFW_PRESS) && !zoomIn);
 
-		if (moveUp) states->cameraPosition.y += (settings->cameraSpeedXY * states->zoom) * deltaTime;
-		else if (moveDown) states->cameraPosition.y -= (settings->cameraSpeedXY * states->zoom) * deltaTime;
+		if (!settings->discreteMovement)
+		{
+			if (moveUp) states->cameraPosition.y += (settings->cameraSpeedXY * states->zoom) * deltaTime;
+			else if (moveDown) states->cameraPosition.y -= (settings->cameraSpeedXY * states->zoom) * deltaTime;
 
-		if (moveRight) states->cameraPosition.x += (settings->cameraSpeedXY * states->zoom) * deltaTime;
-		else if (moveLeft) states->cameraPosition.x -= (settings->cameraSpeedXY * states->zoom) * deltaTime;
+			if (moveRight) states->cameraPosition.x += (settings->cameraSpeedXY * states->zoom) * deltaTime;
+			else if (moveLeft) states->cameraPosition.x -= (settings->cameraSpeedXY * states->zoom) * deltaTime;
 
-		if (moveIn) states->cameraPosition.z -= (settings->cameraSpeedZ * states->zoom) * deltaTime;
-		else if (moveOut) states->cameraPosition.z += (settings->cameraSpeedZ * states->zoom) * deltaTime;
+			if (moveIn) states->cameraPosition.z -= (settings->cameraSpeedZ * states->zoom) * deltaTime;
+			else if (moveOut) states->cameraPosition.z += (settings->cameraSpeedZ * states->zoom) * deltaTime;
+		}
+		else if (states->sumMoveTime >= settings->moveDelay)
+		{
+			states->sumMoveTime = 0.0f;
+
+			if (moveUp) states->cameraPosition.y += (settings->tileWidth * states->zoom);
+			else if (moveDown) states->cameraPosition.y -= (settings->tileWidth * states->zoom);
+
+			if (moveRight) states->cameraPosition.x += (settings->tileWidth * states->zoom);
+			else if (moveLeft) states->cameraPosition.x -= (settings->tileWidth * states->zoom);
+
+			if (moveIn) states->cameraPosition.z -= 1;
+			else if (moveOut) states->cameraPosition.z += 1;
+		}
+		else if (settings->discreteMovement)
+		{
+			states->sumMoveTime += deltaTime;
+		}
 
 		if (zoomIn) states->zoom -= settings->zoomSpeed * deltaTime;
 		else if (zoomOut) states->zoom += settings->zoomSpeed * deltaTime;

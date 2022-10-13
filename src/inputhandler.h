@@ -12,10 +12,16 @@ namespace LWRL
 		glm::vec3			cameraPosition = glm::vec3(512.0f, 512.0f, 10.0f);
 
 		float				zoom = 1.5f;
+
+		float				sumMoveTime = 0.0f;
 	};
 
 	struct InputSettings
 	{
+		bool				discreteMovement = true;
+		int					tileWidth = 64;
+		float				moveDelay = 0.5f;
+
 		float				cameraSpeedXY = 500.0f;
 		float				cameraSpeedZ = 10.0f;
 		float				minZoom = 0.1f;
