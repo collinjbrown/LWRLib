@@ -26,8 +26,6 @@ namespace LWRL
 		unsigned int		height;
 		std::string			title;
 
-		int					tileWidth = 64;
-
 		unsigned int		fps = 0;
 		unsigned int		fpsCount = 0;
 		float				lastTimeFPS;

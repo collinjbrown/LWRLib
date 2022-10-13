@@ -30,19 +30,19 @@ namespace LWRL
 			{
 				states->sumMoveTime = 0.0f;
 
-				if (moveUp) states->cameraPosition.y += settings->tileWidth;
-				else if (moveDown) states->cameraPosition.y -= settings->tileWidth;
+				if (moveUp) states->cameraPosition.y += (settings->tileWidth / states->zoom);
+				else if (moveDown) states->cameraPosition.y -= (settings->tileWidth / states->zoom);
 
-				if (moveRight) states->cameraPosition.x += settings->tileWidth;
-				else if (moveLeft) states->cameraPosition.x -= settings->tileWidth;
+				if (moveRight) states->cameraPosition.x += (settings->tileWidth / states->zoom);
+				else if (moveLeft) states->cameraPosition.x -= (settings->tileWidth / states->zoom);
 
 				if (moveIn) states->cameraPosition.z -= 1;
 				else if (moveOut) states->cameraPosition.z += 1;
 			}
 			else
 			{
-				states->cameraPosition = glm::vec3( states->cameraPosition.x / settings->tileWidth,
-													states->cameraPosition.y / settings->tileWidth,
+				states->cameraPosition = glm::vec3( (int)(states->cameraPosition.x / settings->tileWidth),
+													(int)(states->cameraPosition.y / settings->tileWidth),
 													(int)states->cameraPosition.z);
 				states->sumMoveTime += deltaTime;
 			}

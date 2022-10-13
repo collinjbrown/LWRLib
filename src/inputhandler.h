@@ -19,7 +19,7 @@ namespace LWRL
 	struct InputSettings
 	{
 		bool				discreteMovement = true;
-		int					tileWidth = 64;
+		int					tileWidth = 32;
 		float				moveDelay = 0.1f;
 
 		float				cameraSpeedXY = 500.0f;
