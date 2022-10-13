@@ -20,7 +20,7 @@ namespace LWRL
 	{
 		bool				discreteMovement = true;
 		int					tileWidth = 64;
-		float				moveDelay = 0.5f;
+		float				moveDelay = 0.1f;
 
 		float				cameraSpeedXY = 500.0f;
 		float				cameraSpeedZ = 10.0f;

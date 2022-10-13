@@ -24,22 +24,25 @@ namespace LWRL
 			if (moveIn) states->cameraPosition.z -= (settings->cameraSpeedZ * states->zoom) * deltaTime;
 			else if (moveOut) states->cameraPosition.z += (settings->cameraSpeedZ * states->zoom) * deltaTime;
 		}
-		else if (states->sumMoveTime >= settings->moveDelay)
+		else
 		{
-			states->sumMoveTime = 0.0f;
+			if (states->sumMoveTime >= settings->moveDelay)
+			{
+				states->sumMoveTime = 0.0f;
 
-			if (moveUp) states->cameraPosition.y += (settings->tileWidth / states->zoom);
-			else if (moveDown) states->cameraPosition.y -= (settings->tileWidth / states->zoom);
+				if (moveUp) states->cameraPosition.y += (settings->tileWidth / states->zoom);
+				else if (moveDown) states->cameraPosition.y -= (settings->tileWidth / states->zoom);
 
-			if (moveRight) states->cameraPosition.x += (settings->tileWidth / states->zoom);
-			else if (moveLeft) states->cameraPosition.x -= (settings->tileWidth / states->zoom);
+				if (moveRight) states->cameraPosition.x += (settings->tileWidth / states->zoom);
+				else if (moveLeft) states->cameraPosition.x -= (settings->tileWidth / states->zoom);
 
-			if (moveIn) states->cameraPosition.z -= 1;
-			else if (moveOut) states->cameraPosition.z += 1;
-		}
-		else if (settings->discreteMovement)
-		{
-			states->sumMoveTime += deltaTime;
+				if (moveIn) states->cameraPosition.z -= 1;
+				else if (moveOut) states->cameraPosition.z += 1;
+			}
+			else
+			{
+				states->sumMoveTime += deltaTime;
+			}
 		}
 
 		if (zoomIn) states->zoom -= settings->zoomSpeed * deltaTime;
