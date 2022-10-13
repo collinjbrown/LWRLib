@@ -41,6 +41,9 @@ namespace LWRL
 			}
 			else
 			{
+				states->cameraPosition = glm::vec3( states->cameraPosition.x / settings->tileWidth,
+													states->cameraPosition.y / settings->tileWidth,
+													(int)states->cameraPosition.z);
 				states->sumMoveTime += deltaTime;
 			}
 		}
