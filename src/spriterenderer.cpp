@@ -43,6 +43,6 @@ namespace LWRL
 		batch.buffer[batch.index] = { bottomRight, topRight, topLeft };
 		batch.index++;
 
-		tris += 2;
+		AddTris(2);
 	}
 }
