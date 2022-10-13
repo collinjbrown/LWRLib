@@ -19,10 +19,12 @@ add_library(LWRLib
     "src/shader.h"
     "src/spriterenderer.cpp"
     "src/spriterenderer.h"
+    "src/textrenderer.cpp"
+    "src/textrenderer.h"
     "src/texture.cpp"
     "src/texture.h"
     "src/util.cpp"
-    "src/util.h" "src/textrenderer.h" "src/textrenderer.cpp")
+    "src/util.h")
 
 target_link_libraries(LWRLib glfw glad glm)
 target_include_directories (LWRLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
