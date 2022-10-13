@@ -14,12 +14,10 @@ namespace LWRL
 		FT_Library  library;
 		FT_Face     face;
 
-		bool init = false;
-
 	public:
 		void RenderText(glm::vec3 pos, glm::vec4 color, std::string text);
 
-		TextRenderer();
+		void Init();
 	};
 }
 
