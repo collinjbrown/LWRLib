@@ -1,5 +1,5 @@
-#ifndef RENDERER_H
-#define RENDERER_H
+#ifndef SPRITERENDERER_H
+#define SPRITERENDERER_H
 
 #include <vector>
 #include <array>
@@ -18,7 +18,7 @@ namespace LWRL
 		int index = 0;
 	};
 
-	class Renderer
+	class SpriteRenderer
 	{
 	private:
 		bool init = false;
@@ -55,7 +55,7 @@ namespace LWRL
 		void Render();
 		void Terminate();
 
-		Renderer();
+		SpriteRenderer();
 	};
 }
 

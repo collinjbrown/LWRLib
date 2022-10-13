@@ -35,13 +35,13 @@ namespace LWRL
 			if (fadeDepth != 0 && depthDifference != 0) color = UTIL::ColorLerp(color, fadeColor, (depthDifference / (float)fadeDepth));
 			for (int i = 0; i < filters.size(); i++) { color = UTIL::ColorLerp(color, filters[i].color, filters[i].strength); }
 
-			renderer->RenderSprite(pos, color, texture);
+			spriteRenderer->RenderSprite(pos, color, texture);
 		}
 	}
 
 	Texture* Hub::AddTexture(std::string file)
 	{
-		return renderer->AddTexture(file);
+		return spriteRenderer->AddTexture(file);
 	}
 
 	void Hub::CheckFPS()
@@ -110,14 +110,14 @@ namespace LWRL
 		glm::vec3 cam = GetCameraPosition();
 		glm::vec3 center = cam + glm::vec3(0.0f, 0.0f, -1.0f);
 		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-		renderer->SetView(glm::lookAt(cam, center, up));
+		spriteRenderer->SetView(glm::lookAt(cam, center, up));
 
-		renderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);
+		spriteRenderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);
 
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		renderer->Render();
+		spriteRenderer->Render();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -130,7 +130,7 @@ namespace LWRL
 			closes down nice and neatly. It doesn't do much right now.
 		*/
 
-		renderer->Terminate();
+		spriteRenderer->Terminate();
 		inputHandler->Terminate();
 
 		delete inputSettings;
@@ -186,7 +186,7 @@ namespace LWRL
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		// And lastly prepare the renderer and input handler.
-		renderer = new Renderer();
+		spriteRenderer = new SpriteRenderer();
 		inputHandler = new InputHandler(window);
 
 		inputSettings = new InputSettings();

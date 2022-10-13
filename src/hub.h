@@ -12,7 +12,7 @@
 #include <map>
 
 #include "util.h"
-#include "renderer.h"
+#include "spriterenderer.h"
 #include "inputhandler.h"
 
 namespace LWRL
@@ -49,7 +49,7 @@ namespace LWRL
 
 
 		std::vector<UTIL::Filter>		filters;
-		Renderer*						renderer;
+		SpriteRenderer*					spriteRenderer;
 		InputHandler*					inputHandler;
 
 		void CheckFPS();

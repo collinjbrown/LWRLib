@@ -1,4 +1,4 @@
-#include "renderer.h"
+#include "spriterenderer.h"
 
 #include <iostream>
 #include <filesystem>
@@ -6,7 +6,7 @@
 
 namespace LWRL
 {
-	void Renderer::UpdateProjection(int width, int height, float zoom, float nearClip, float farClip)
+	void SpriteRenderer::UpdateProjection(int width, int height, float zoom, float nearClip, float farClip)
 	{
 		float halfWidth = (width / 2.0f) * zoom;
 		float halfHeight = (height / 2.0f) * zoom;
@@ -14,14 +14,14 @@ namespace LWRL
 		this->projection = glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, nearClip, farClip);
 	}
 
-	Texture* Renderer::AddTexture(std::string file)
+	Texture* SpriteRenderer::AddTexture(std::string file)
 	{
 		Texture* texture = new Texture(file);
 		textures.push_back(texture);
 		return texture;
 	}
 
-	Texture* Renderer::GetTexture(int index)
+	Texture* SpriteRenderer::GetTexture(int index)
 	{
 		if (index < textures.size() && index >= 0)
 		{
@@ -32,7 +32,7 @@ namespace LWRL
 		return nullptr;
 	}
 
-	void Renderer::RepairTexture()
+	void SpriteRenderer::RepairTexture()
 	{
 		std::vector<Texture*> activeTextures;
 		archtexture->Reset();
@@ -75,7 +75,7 @@ namespace LWRL
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	void Renderer::Flush(const Batch& batch)
+	void SpriteRenderer::Flush(const Batch& batch)
 	{
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -83,7 +83,7 @@ namespace LWRL
 		glDrawElements(GL_TRIANGLES, batch.index * 3, GL_UNSIGNED_INT, nullptr);
 	}
 
-	void Renderer::ResetBuffers()
+	void SpriteRenderer::ResetBuffers()
 	{
 		bool needsPreparing = false;
 
@@ -110,7 +110,7 @@ namespace LWRL
 		tris = 0;
 	}
 
-	void Renderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
+	void SpriteRenderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
 		texture->used = true;
 
@@ -150,7 +150,7 @@ namespace LWRL
 		tris += 2;
 	}
 
-	void Renderer::Render()
+	void SpriteRenderer::Render()
 	{
 		if (!init)
 		{
@@ -173,7 +173,7 @@ namespace LWRL
 		ResetBuffers();
 	}
 
-	void Renderer::Terminate()
+	void SpriteRenderer::Terminate()
 	{
 		for (int i = 0; i < textures.size(); i++)
 		{
@@ -184,7 +184,7 @@ namespace LWRL
 		delete this;
 	}
 
-	Renderer::Renderer() : batches(1), shader("assets/shaders/base.vert", "assets/shaders/base.frag")
+	SpriteRenderer::SpriteRenderer() : batches(1), shader("assets/shaders/base.vert", "assets/shaders/base.frag")
 	{
 		GLuint IBO;
 
