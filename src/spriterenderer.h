@@ -9,7 +9,6 @@ namespace LWRL
 	{
 	public:
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
-		SpriteRenderer();
 	};
 }
 
