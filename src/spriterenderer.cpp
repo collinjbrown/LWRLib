@@ -1,5 +1,9 @@
 #include "spriterenderer.h"
 
+#include <iostream>
+#include <filesystem>
+#include <glm/ext/matrix_clip_space.hpp>
+
 namespace LWRL
 {
 	void SpriteRenderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
