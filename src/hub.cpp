@@ -120,8 +120,8 @@ namespace LWRL
 		glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.y, backgroundColor.z);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		textRenderer->Render();
 		spriteRenderer->Render();
+		textRenderer->Render();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
