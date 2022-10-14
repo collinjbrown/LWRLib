@@ -4,8 +4,6 @@
 #include <vector>
 #include <array>
 
-#include <glm/glm.hpp>
-
 #include "archtexture.h"
 #include "shader.h"
 #include "polygons.h"

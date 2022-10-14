@@ -17,8 +17,8 @@ add_library(LWRLib
     "src/inputhandler.cpp"
     "src/inputhandler.h"
     "src/polygons.h"
-    "src/renderer.cpp"
     "src/renderer.h"
+    "src/renderer.cpp"
     "src/shader.cpp"
     "src/shader.h"
     "src/spriterenderer.cpp"
@@ -32,8 +32,8 @@ add_library(LWRLib
 
 if(DEBUG)
     add_subdirectory(libs/freetype-2.12.1)
-    add_subdirectory(libs/glad)
     add_subdirectory(libs/glfw-3.3.8)
+    add_subdirectory(libs/glad)
     add_subdirectory(libs/glm-0.9.9.8)
 endif()
 
