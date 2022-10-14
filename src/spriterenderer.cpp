@@ -156,7 +156,7 @@ namespace LWRL
 		tris += 2;
 	}
 
-	void SpriteRenderer::RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, float y, float u, float v, Texture* texture)
+	void SpriteRenderer::RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, float y, Texture* texture)
 	{
 		texture->used = true;
 
@@ -168,22 +168,25 @@ namespace LWRL
 
 		Batch& batch = batches[bNum];
 
-		const float right = pos.x + (texture->GetWidth() / 2.0f);
-		const float left = pos.x - (texture->GetWidth() / 2.0f);
-		const float top = pos.y + (texture->GetHeight() / 2.0f);
-		const float bottom = pos.y - (texture->GetHeight() / 2.0f);
+		const float right = pos.x + (width / 2.0f);
+		const float left = pos.x - (width / 2.0f);
+		const float top = pos.y + (height / 2.0f);
+		const float bottom = pos.y - (height / 2.0f);
 
 		const float r = color.r;
 		const float g = color.g;
 		const float b = color.b;
 		const float a = color.a;
 
+		const float lX = 0.0;
+		const float rX = width / texture->GetWidth();
+		const float tY = y + (height / texture->GetHeight());
 		const float s = texture->yIndex;
 
-		Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, 0.0, y, width, height, s };
-		Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, u, y, width, height, s };
-		Vertex topLeft{ left, top, pos.z, r, g, b, a, 0.0, y + v, width, height, s };
-		Vertex topRight{ right, top, pos.z, r, g, b, a, u, y + v, width, height, s };
+		Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, lX, y, width, height, s };
+		Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, rX, y, width, height, s };
+		Vertex topLeft{ left, top, pos.z, r, g, b, a, lX, tY, width, height, s };
+		Vertex topRight{ right, top, pos.z, r, g, b, a, rX, tY, width, height, s };
 
 		batch.buffer[batch.index] = { bottomLeft, bottomRight, topLeft };
 		batch.index++;

@@ -18,8 +18,6 @@ namespace LWRL
 		FT_Pos		advance;
 
 		float		y;
-		float		u;
-		float		v;
 	};
 
 	struct Font
