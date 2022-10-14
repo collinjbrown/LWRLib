@@ -33,7 +33,7 @@ namespace LWRL
 		FT_Library				library;
 		SpriteRenderer*			spriteRenderer;
 
-		std::vector<Font>		fonts;
+		std::vector<Font*>		fonts;
 
 	public:
 		Font* AddFont(std::string file);

@@ -19,7 +19,6 @@ namespace LWRL
 
 	Texture::Texture(unsigned int width, unsigned int height, unsigned char* data) : used(false), active(false), yIndex(0), index(0)
 	{
-		this->index = index;
 		this->width = width;
 		this->height = height;
 		this->data = data;

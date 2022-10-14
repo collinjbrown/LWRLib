@@ -180,11 +180,12 @@ namespace LWRL
 
 		const float lX = 0.0;
 		const float rX = width / texture->GetWidth();
-		const float tY = (y / texture->GetHeight()) + (height / texture->GetHeight());
+		const float bY = (y / texture->GetHeight());
+		const float tY = bY + (height / texture->GetHeight());
 		const float s = texture->yIndex;
 
-		Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, lX, y, width, height, s };
-		Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, rX, y, width, height, s };
+		Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, lX, bY, width, height, s };
+		Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, rX, bY, width, height, s };
 		Vertex topLeft{ left, top, pos.z, r, g, b, a, lX, tY, width, height, s };
 		Vertex topRight{ right, top, pos.z, r, g, b, a, rX, tY, width, height, s };
 

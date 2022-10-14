@@ -43,8 +43,9 @@ namespace LWRL
 
 		FT_Set_Pixel_Sizes(face, 0, 64);
 
-		fonts.push_back({ face });
-		Font* font = &fonts[fonts.size() - 1];
+		Font* font = new Font();
+		font->face = face;
+		fonts.push_back(font);
 
 		// Construct texture.
 		unsigned int width = 0;
@@ -54,7 +55,7 @@ namespace LWRL
 
 		for (unsigned char c = 0; c < 128; c++)
 		{
-			if (FT_Load_Char(face, c, ftLoadFlags))
+			if (FT_Load_Char(face, c, FT_LOAD_RENDER))
 			{
 				std::cout << "Could not load glyph: " + std::to_string(c) + "." << std::endl;
 				continue;
@@ -72,7 +73,7 @@ namespace LWRL
 
 		unsigned char* data = new unsigned char[width * height * 4];
 
-		for (int i = 0; i < width * height * 4; i++) data[i] = 0;
+		for (int i = 0; i < width * height * 4; i++) data[i] = '0';
 
 		unsigned int nextIndex = 0;
 		unsigned int yIndex = 0;
@@ -86,8 +87,7 @@ namespace LWRL
 				std::cout << "Could not load glyph: " + std::to_string(c) + "." << std::endl;
 				continue;
 			}
-
-			// unsigned int index = (((h + nextY) * width) + w) * 4;
+			
 			int w = face->glyph->bitmap.width;
 			int h = face->glyph->bitmap.rows;
 
@@ -110,10 +110,9 @@ namespace LWRL
 			};
 
 			font->characters.insert(std::pair<char, Character>(c, character));
-			nextIndex += bitmapLength;
+			nextIndex += width * h * 4;
 			yIndex += h;
 		}
-
 
 		// Now we have all the info we need.
 		Texture* texture = new Texture(width, height, data);
