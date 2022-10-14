@@ -16,7 +16,8 @@ namespace LWRL
 
 	public:
 		void RenderText(glm::vec3 pos, glm::vec4 color, std::string text);
-		TextRenderer(std::string vertexShader, std::string fragmentShader);
+
+		void Init();
 	};
 }
 

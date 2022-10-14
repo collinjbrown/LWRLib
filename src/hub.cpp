@@ -110,18 +110,14 @@ namespace LWRL
 		glm::vec3 cam = GetCameraPosition();
 		glm::vec3 center = cam + glm::vec3(0.0f, 0.0f, -1.0f);
 		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+		spriteRenderer->SetView(glm::lookAt(cam, center, up));
 
-		spriteRenderer->SetView(glm::lookAt(cam, center, up));									// This doubled renderer updating feels unnecessary.
-		textRenderer->SetView(glm::lookAt(cam, center, up));									// I would like to change it, at some point.
+		spriteRenderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);
 
-		spriteRenderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);	// Ditto ^
-		textRenderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);
-
-		glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.y, backgroundColor.z);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		spriteRenderer->Render();
-		textRenderer->Render();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -189,16 +185,10 @@ namespace LWRL
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		// And lastly prepare the renderers and input handler.
-		std::string baseVert = "assets/shaders/base.vert";
-		std::string baseFrag = "assets/shaders/base.frag";
-		std::string textVert = "assets/shaders/text.vert";
-		std::string textFrag = "assets/shaders/text.frag";
-
-		spriteRenderer = new SpriteRenderer(baseVert, baseFrag);
-		textRenderer = new TextRenderer(textVert, textFrag);
-
+		// And lastly prepare the renderer and input handler.
+		spriteRenderer = new SpriteRenderer();
 		inputHandler = new InputHandler(window);
+
 		inputSettings = new InputSettings();
 		inputStates = new InputStates();
 	}
