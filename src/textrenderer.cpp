@@ -17,7 +17,7 @@ namespace LWRL
 			float width = character.size.x;
 			float height = character.size.y;
 
-			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width, height, character.y, character.u, character.v, font->texture);
+			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width, height, character.y, font->texture);
 
 			x += (character.advance >> 6);
 		}
@@ -104,7 +104,7 @@ namespace LWRL
 				glm::vec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 				glm::vec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
 				face->glyph->advance.x,
-				nextIndex / height
+				nextIndex
 			};
 
 			font->characters.insert(std::pair<char, Character>(c, character));

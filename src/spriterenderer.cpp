@@ -180,7 +180,7 @@ namespace LWRL
 
 		const float lX = 0.0;
 		const float rX = width / texture->GetWidth();
-		const float tY = y + (height / texture->GetHeight());
+		const float tY = (y + height) / texture->GetHeight();
 		const float s = texture->yIndex;
 
 		Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, lX, y, width, height, s };
