@@ -3,11 +3,19 @@
 
 namespace LWRL
 {
-	void TextRenderer::RenderText(std::string text, Font font)
+	void TextRenderer::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font font)
 	{
 		for (int i = 0; i < text.size(); i++)
 		{
+			Character character = font.characters[i];
 
+			float xPos = position.x + character.bearing.x;
+			float yPos = position.y - (character.size.y - character.bearing.y);
+
+			float width = character.size.x;
+			float height = character.size.y;
+
+			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width, height, character.y, character.u, character.v, font.texture);
 		}
 	}
 
@@ -94,6 +102,7 @@ namespace LWRL
 		// Now we have all the info we need.
 		Texture* texture = new Texture(width, height, data);
 		spriteRenderer->AddTexture(texture);
+		font->texture = texture;
 	}
 
 	TextRenderer::TextRenderer(SpriteRenderer* spriteRenderer)

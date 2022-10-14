@@ -50,7 +50,7 @@ namespace LWRL
 		void SetView(glm::mat4 view) { this->view = view; }
 
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
-		void RenderText(glm::vec3 pos, glm::vec4 color, float width, float height, float s, float t, Texture* texture);
+		void RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, float y, float u, float v, Texture* texture);
 
 		void UpdateProjection(int width, int height, float zoom, float nearClip, float farClip);
 

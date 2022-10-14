@@ -17,14 +17,15 @@ namespace LWRL
 		FT_Pos		advance;
 
 		float		y;
-		float		s;
-		float		t;
+		float		u;
+		float		v;
 	};
 
 	struct Font
 	{
-		FT_Face	face;
-		std::map<char, Character> characters;
+		FT_Face						face;
+		Texture*					texture;
+		std::map<char, Character>	characters;
 	};
 
 	class TextRenderer
@@ -37,7 +38,7 @@ namespace LWRL
 
 	public:
 		void AddFont(std::string file);
-		void RenderText(std::string text, Font font);
+		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font font);
 		TextRenderer(SpriteRenderer* spriteRenderer);
 	};
 }

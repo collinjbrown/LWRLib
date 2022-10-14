@@ -156,7 +156,7 @@ namespace LWRL
 		tris += 2;
 	}
 
-	void SpriteRenderer::RenderText(glm::vec3 pos, glm::vec4 color, float width, float height, float s, float t, Texture* texture)
+	void SpriteRenderer::RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, float y, float u, float v, Texture* texture)
 	{
 		texture->used = true;
 
@@ -178,16 +178,20 @@ namespace LWRL
 		const float b = color.b;
 		const float a = color.a;
 
-		// Blah, blah, blah
+		const float s = texture->yIndex;
 
+		Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, 0.0, y, width, height, s };
+		Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, u, y, width, height, s };
+		Vertex topLeft{ left, top, pos.z, r, g, b, a, 0.0, y + v, width, height, s };
+		Vertex topRight{ right, top, pos.z, r, g, b, a, u, y + v, width, height, s };
 
-		/*batch.buffer[batch.index] = { bottomLeft, bottomRight, topLeft };
+		batch.buffer[batch.index] = { bottomLeft, bottomRight, topLeft };
 		batch.index++;
 
 		batch.buffer[batch.index] = { bottomRight, topRight, topLeft };
 		batch.index++;
 
-		tris += 2;*/
+		tris += 2;
 	}
 
 	void SpriteRenderer::Render()
