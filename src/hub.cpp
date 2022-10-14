@@ -114,7 +114,7 @@ namespace LWRL
 
 		spriteRenderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);
 
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		spriteRenderer->Render();
