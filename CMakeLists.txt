@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set (DEBUG False)
-
 add_library(LWRLib
     "src/external/stb_image.cpp"
     "src/external/stb_image.h"
@@ -17,8 +15,6 @@ add_library(LWRLib
     "src/inputhandler.cpp"
     "src/inputhandler.h"
     "src/polygons.h"
-    "src/renderer.h"
-    "src/renderer.cpp"
     "src/shader.cpp"
     "src/shader.h"
     "src/spriterenderer.cpp"
@@ -30,12 +26,5 @@ add_library(LWRLib
     "src/util.cpp"
     "src/util.h")
 
-if(DEBUG)
-    add_subdirectory(libs/freetype-2.12.1)
-    add_subdirectory(libs/glfw-3.3.8)
-    add_subdirectory(libs/glad)
-    add_subdirectory(libs/glm-0.9.9.8)
-endif()
-
-target_link_libraries(LWRLib glfw glad glm freetype)
+target_link_libraries(LWRLib glfw glad glm)
 target_include_directories (LWRLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

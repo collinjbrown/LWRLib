@@ -12,7 +12,7 @@
 #include <map>
 
 #include "util.h"
-#include "textrenderer.h"
+#include "spriterenderer.h"
 #include "inputhandler.h"
 
 namespace LWRL
