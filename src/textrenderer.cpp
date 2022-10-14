@@ -19,7 +19,7 @@ namespace LWRL
 		}
 	}
 
-	void TextRenderer::AddFont(std::string file)
+	Font* TextRenderer::AddFont(std::string file)
 	{
 		// Load the font file.
 		FT_Face face;
@@ -103,6 +103,8 @@ namespace LWRL
 		Texture* texture = new Texture(width, height, data);
 		spriteRenderer->AddTexture(texture);
 		font->texture = texture;
+
+		return font;
 	}
 
 	TextRenderer::TextRenderer(SpriteRenderer* spriteRenderer)

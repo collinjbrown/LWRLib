@@ -37,7 +37,7 @@ namespace LWRL
 		std::vector<Font>		fonts;
 
 	public:
-		void AddFont(std::string file);
+		Font* AddFont(std::string file);
 		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font font);
 		TextRenderer(SpriteRenderer* spriteRenderer);
 	};

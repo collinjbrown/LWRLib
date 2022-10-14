@@ -72,7 +72,10 @@ namespace LWRL
 		glm::vec4 GetWindowBorders() { return glm::vec4(windowLeft, windowRight, windowTop, windowBottom); }
 
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
+		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font font);
+
 		Texture* AddTexture(std::string file);
+		Font* AddFont(std::string file);
 
 		void AddFilter(std::string name, glm::vec4 filter, float strength) { filters.push_back({ name, filter, strength }); }
 		std::vector<UTIL::Filter>::iterator FindFilter(std::string name);
