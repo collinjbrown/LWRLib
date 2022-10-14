@@ -3,10 +3,11 @@
 
 #include <map>
 
+#include "spriterenderer.h"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#include "spriterenderer.h"
 
 namespace LWRL
 {
@@ -38,7 +39,7 @@ namespace LWRL
 
 	public:
 		Font* AddFont(std::string file);
-		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font font);
+		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font);
 		TextRenderer(SpriteRenderer* spriteRenderer);
 	};
 }

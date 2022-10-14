@@ -24,6 +24,12 @@ namespace LWRL
 		if (iter != filters.end()) { filters.erase(iter); }
 	}
 
+
+	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font)
+	{
+		textRenderer->RenderText(position, color, text, font);
+	}
+
 	void Hub::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
 		int depthDifference = (((int)GetCameraPosition().z - 9) - (int)pos.z);
@@ -37,11 +43,6 @@ namespace LWRL
 
 			spriteRenderer->RenderSprite(pos, color, texture);
 		}
-	}
-
-	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font)
-	{
-		textRenderer->RenderText(position, color, text, *font);
 	}
 
 	Texture* Hub::AddTexture(std::string file)

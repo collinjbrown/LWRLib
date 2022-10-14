@@ -21,7 +21,7 @@ namespace LWRL
 	{
 	private:
 		int					test = 0;
-		GLFWwindow*			window;
+		GLFWwindow* window;
 		unsigned int		width;
 		unsigned int		height;
 		std::string			title;
@@ -33,8 +33,8 @@ namespace LWRL
 
 		float				lastTimeDT;
 
-		InputSettings*		inputSettings;
-		InputStates*		inputStates;
+		InputSettings* inputSettings;
+		InputStates* inputStates;
 
 		float				windowLeft = 0.0f;
 		float				windowRight = 0.0f;
@@ -49,9 +49,9 @@ namespace LWRL
 		glm::vec4			backgroundColor = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 		std::vector<UTIL::Filter>		filters;
-		SpriteRenderer*					spriteRenderer;
-		TextRenderer*					textRenderer;
-		InputHandler*					inputHandler;
+		SpriteRenderer* spriteRenderer;
+		TextRenderer* textRenderer;
+		InputHandler* inputHandler;
 
 		void CheckFPS();
 		float GetDeltaTime();
@@ -61,7 +61,7 @@ namespace LWRL
 		int GetWidth() { return width; }
 		int GetHeight() { return height; }
 		std::string GetTitle() { return title; }
-		
+
 		void SetWidth(int width) { this->width = width; }
 		void SetHeight(int height) { this->height = height; }
 		void SetTitle(std::string title) { this->title = title; }
@@ -71,8 +71,9 @@ namespace LWRL
 
 		glm::vec4 GetWindowBorders() { return glm::vec4(windowLeft, windowRight, windowTop, windowBottom); }
 
-		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
 		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font);
+
+		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
 
 		Texture* AddTexture(std::string file);
 		Font* AddFont(std::string file);
