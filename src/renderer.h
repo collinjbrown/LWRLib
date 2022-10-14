@@ -45,7 +45,6 @@ namespace LWRL
 	public:
 		int GetTris() { return tris; }
 		void SetTris(int t) { tris = t; }
-		void AddTris(int t) { tris += t; }
 
 		int GetBatchesSize() { return batches.size(); }
 		void AddBatch(Batch* b) { batches.push_back(*b); }
