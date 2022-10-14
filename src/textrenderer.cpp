@@ -3,7 +3,7 @@
 
 namespace LWRL
 {
-	void TextRenderer::Init()
+	TextRenderer::TextRenderer(std::string vertexShader, std::string fragmentShader) : Renderer(vertexShader, fragmentShader)
 	{
 		FT_Error error = FT_Init_FreeType(&library);
 		if (error)
@@ -20,7 +20,5 @@ namespace LWRL
 		{
 			std::cout << "The font file is either not openable or not readable." << std::endl;
 		}
-
-		// More...
 	}
 }

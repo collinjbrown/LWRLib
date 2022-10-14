@@ -144,7 +144,7 @@ namespace LWRL
 		delete this;
 	}
 
-	Renderer::Renderer() : batches(1), shader("assets/shaders/base.vert", "assets/shaders/base.frag")
+	Renderer::Renderer(std::string vertexShader, std::string fragmentShader) : batches(1), shader(vertexShader.c_str(), fragmentShader.c_str())
 	{
 		GLuint IBO;
 

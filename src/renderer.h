@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <array>
+#include <string>
 
 #include <glm/glm.hpp>
 
@@ -63,7 +64,7 @@ namespace LWRL
 		void Render();
 		void Terminate();
 
-		Renderer();
+		Renderer(std::string vertexShader, std::string fragmentShader);
 	};
 }
 
