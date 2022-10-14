@@ -4,8 +4,10 @@
 
 namespace LWRL
 {
-	Texture::Texture(std::string file) : used(false), active(false), index(-1)
+	Texture::Texture(std::string file, unsigned int index) : used(false), active(false), yIndex(0)
 	{
+		this->index = index;
+
 		stbi_set_flip_vertically_on_load(true);
 
 		int imageWidth, imageHeight, nrChannels;
@@ -13,5 +15,13 @@ namespace LWRL
 
 		this->width = imageWidth;
 		this->height = imageHeight;
+	}
+
+	Texture::Texture(unsigned int width, unsigned int height, unsigned char* data) : used(false), active(false), yIndex(0), index(0)
+	{
+		this->index = index;
+		this->width = width;
+		this->height = height;
+		this->data = data;
 	}
 }

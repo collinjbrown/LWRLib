@@ -16,9 +16,15 @@ namespace LWRL
 
 	Texture* SpriteRenderer::AddTexture(std::string file)
 	{
-		Texture* texture = new Texture(file);
+		Texture* texture = new Texture(file, textures.size());
 		textures.push_back(texture);
 		return texture;
+	}
+
+	void SpriteRenderer::AddTexture(Texture* texture)
+	{
+		texture->index = textures.size();
+		textures.push_back(texture);
 	}
 
 	Texture* SpriteRenderer::GetTexture(int index)
@@ -148,6 +154,40 @@ namespace LWRL
 		batch.index++;
 
 		tris += 2;
+	}
+
+	void SpriteRenderer::RenderText(glm::vec3 pos, glm::vec4 color, float width, float height, float s, float t, Texture* texture)
+	{
+		texture->used = true;
+
+		int bNum = tris / Batch::MAX_TRIS;
+		if (static_cast<unsigned long long>(bNum) + 1 > batches.size())
+		{
+			batches.push_back(*(new Batch()));
+		}
+
+		Batch& batch = batches[bNum];
+
+		const float right = pos.x + (texture->GetWidth() / 2.0f);
+		const float left = pos.x - (texture->GetWidth() / 2.0f);
+		const float top = pos.y + (texture->GetHeight() / 2.0f);
+		const float bottom = pos.y - (texture->GetHeight() / 2.0f);
+
+		const float r = color.r;
+		const float g = color.g;
+		const float b = color.b;
+		const float a = color.a;
+
+		// Blah, blah, blah
+
+
+		/*batch.buffer[batch.index] = { bottomLeft, bottomRight, topLeft };
+		batch.index++;
+
+		batch.buffer[batch.index] = { bottomRight, topRight, topLeft };
+		batch.index++;
+
+		tris += 2;*/
 	}
 
 	void SpriteRenderer::Render()

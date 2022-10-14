@@ -8,12 +8,12 @@ namespace LWRL
 	class Texture
 	{
 	private:
-		int					index;
 		unsigned int		width;
 		unsigned int		height;
-		unsigned char* data;
+		unsigned char*		data;
 
 	public:
+		unsigned int		index;
 		bool				used;
 		bool				active;
 		unsigned int		yIndex;
@@ -22,7 +22,8 @@ namespace LWRL
 		unsigned int GetHeight() { return height; }
 		unsigned char* GetData() { return data; }
 
-		Texture(std::string file);
+		Texture(std::string file, unsigned int index);
+		Texture(unsigned int width, unsigned int height, unsigned char* data);
 	};
 }
 

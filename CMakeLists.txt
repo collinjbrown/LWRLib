@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set (DEBUG False)
+set (DEBUG True)
 
 add_library(LWRLib
     "src/external/stb_image.cpp"

@@ -12,7 +12,7 @@
 #include <map>
 
 #include "util.h"
-#include "spriterenderer.h"
+#include "textrenderer.h"
 #include "inputhandler.h"
 
 namespace LWRL
@@ -48,9 +48,9 @@ namespace LWRL
 		glm::vec4			fadeColor = glm::vec4(0.5f, 0.5f, 0.5f, 0.1f);
 		glm::vec4			backgroundColor = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
-
 		std::vector<UTIL::Filter>		filters;
 		SpriteRenderer*					spriteRenderer;
+		TextRenderer*					textRenderer;
 		InputHandler*					inputHandler;
 
 		void CheckFPS();
