@@ -39,9 +39,9 @@ namespace LWRL
 		}
 	}
 
-	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font font)
+	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font)
 	{
-		textRenderer->RenderText(position, color, text, font);
+		textRenderer->RenderText(position, color, text, *font);
 	}
 
 	Texture* Hub::AddTexture(std::string file)
