@@ -9,7 +9,8 @@ namespace LWRL
 
 		for (int i = 0; i < text.size(); i++)
 		{
-			Character character = font->characters[i];
+			const char c = text[i];
+			Character character = font->characters[c];
 
 			float xPos = x + character.bearing.x;
 			float yPos = position.y - (character.size.y - character.bearing.y);
@@ -74,6 +75,7 @@ namespace LWRL
 		for (int i = 0; i < width * height * 4; i++) data[i] = 0;
 
 		unsigned int nextIndex = 0;
+		unsigned int yIndex = 0;
 
 		std::vector<Character> characters;
 
@@ -104,11 +106,12 @@ namespace LWRL
 				glm::vec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 				glm::vec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
 				face->glyph->advance.x,
-				nextIndex
+				yIndex
 			};
 
 			font->characters.insert(std::pair<char, Character>(c, character));
 			nextIndex += bitmapLength;
+			yIndex += h;
 		}
 
 
