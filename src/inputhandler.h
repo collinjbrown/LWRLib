@@ -25,7 +25,7 @@ namespace LWRL
 		float				cameraSpeedXY = 500.0f;
 		float				cameraSpeedZ = 10.0f;
 		float				minZoom = 0.1f;
-		float				maxZoom = 2.0f;
+		float				maxZoom = 2.55f;
 		float				zoomSpeed = 0.8f;
 	};
 

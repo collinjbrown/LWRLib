@@ -8,7 +8,6 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-
 namespace LWRL
 {
 	enum class ScreenAnchor { bottomLeft, topLeft, bottomRight, topRight, center };
