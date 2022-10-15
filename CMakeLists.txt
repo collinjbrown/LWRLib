@@ -5,8 +5,10 @@ project (LWRLib LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-set (DEBUG False)
+   
+if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
+    set (DEBUG True)
+endif()
 
 add_library(LWRLib
     "src/external/stb_image.cpp"

@@ -25,7 +25,7 @@ namespace LWRL
 			float height = character->size.y;
 
 			// spriteRenderer->RenderSprite({ xPos, yPos, position.z }, color, character->texture);
-			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width, height, character->texture);
+			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width / zoom, height / zoom, character->texture);
 
 			x += (character->advance >> 6);
 		}

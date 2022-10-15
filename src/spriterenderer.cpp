@@ -178,8 +178,8 @@ namespace LWRL
 		const float b = color.b;
 		const float a = color.a;
 
-		const float w = width;
-		const float h = height;
+		const float w = texture->GetWidth();
+		const float h = texture->GetHeight();
 		const float s = texture->yIndex;
 
 		Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, 0.0, 1.0, w, h, s };
