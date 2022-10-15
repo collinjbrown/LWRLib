@@ -41,7 +41,7 @@ namespace LWRL
 		SpriteRenderer*			spriteRenderer;
 
 		std::vector<Font*>		fonts;
-		int						fontSize = 64;
+		int						fontSize = 128;
 
 	public:
 		Font* AddFont(std::string file);
