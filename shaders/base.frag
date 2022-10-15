@@ -15,5 +15,7 @@ void main()
     float sy = (texStart / archSize.y) + ((texDimens.y / archSize.y) * texCoords.y);
     float sx = (texDimens.x / archSize.x) * texCoords.x;
 
-    color = rgbaColor * texture(batchTextures[0], vec2(sx, sy));
+    color = rgbaColor * texelFetch(batchTextures[0], ivec2(sx * archSize.x, sy * archSize.y), 0);
+
+    // color = rgbaColor * texture(batchTextures[0], vec2(sx, sy));
 }
