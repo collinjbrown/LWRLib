@@ -20,7 +20,6 @@ namespace LWRL
 	class Hub
 	{
 	private:
-		static Hub			main;
 		GLFWwindow*			window;
 		unsigned int		width;
 		unsigned int		height;
