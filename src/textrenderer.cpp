@@ -18,16 +18,16 @@ namespace LWRL
 				continue;
 			}
 
-			float xPos = x + (character->bearing.x / zoom);
-			float yPos = position.y - ((character->size.y - character->bearing.y) / zoom);
+			float xPos = x + (character->bearing.x * zoom);
+			float yPos = position.y - ((character->size.y - character->bearing.y) * zoom);
 
 			float width = character->size.x;
 			float height = character->size.y;
 
 			// spriteRenderer->RenderSprite({ xPos, yPos, position.z }, color, character->texture);
-			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width / zoom, height / zoom, character->texture);
+			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width * zoom, height * zoom, character->texture);
 
-			x += (character->advance >> 6) / zoom;
+			x += (character->advance >> 6) * zoom;
 		}
 	}
 
