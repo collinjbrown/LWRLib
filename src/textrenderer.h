@@ -17,14 +17,13 @@ namespace LWRL
 		glm::ivec2	bearing;
 		FT_Pos		advance;
 
-		float		y;
+		Texture*	texture;
 	};
 
 	struct Font
 	{
 		FT_Face						face;
-		Texture*					texture;
-		std::map<char, Character>	characters;
+		std::map<char, Character*>	characters;
 	};
 
 	class TextRenderer

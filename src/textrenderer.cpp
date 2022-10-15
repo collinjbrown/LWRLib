@@ -10,17 +10,17 @@ namespace LWRL
 		for (int i = 0; i < text.size(); i++)
 		{
 			const char c = text[i];
-			Character character = font->characters[c];
+			Character* character = font->characters[c];
 
-			float xPos = x + character.bearing.x;
-			float yPos = position.y - (character.size.y - character.bearing.y);
+			float xPos = x + character->bearing.x;
+			float yPos = position.y - (character->size.y - character->bearing.y);
 
-			float width = character.size.x;
-			float height = character.size.y;
+			float width = character->size.x;
+			float height = character->size.y;
 
-			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width, height, character.y, font->texture);
+			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width, height, character->texture);
 
-			x += (character.advance >> 6);
+			x += (character->advance >> 6);
 		}
 	}
 
@@ -47,38 +47,7 @@ namespace LWRL
 		font->face = face;
 		fonts.push_back(font);
 
-		// Construct texture.
-		unsigned int width = 0;
-		unsigned int height = 0;
-
 		constexpr int ftLoadFlags = FT_LOAD_RENDER | FT_LOAD_COLOR;
-
-		for (unsigned char c = 0; c < 128; c++)
-		{
-			if (FT_Load_Char(face, c, FT_LOAD_RENDER))
-			{
-				std::cout << "Could not load glyph: " + std::to_string(c) + "." << std::endl;
-				continue;
-			}
-
-			width = std::max(width, face->glyph->bitmap.width);
-			height += face->glyph->bitmap.rows;
-		}
-
-		if (width == 0 || height == 0)
-		{
-			std::cout << "Failed to load glyphs." << std::endl;
-			return nullptr;
-		}
-
-		unsigned char* data = new unsigned char[width * height * 4];
-
-		for (int i = 0; i < width * height * 4; i++) data[i] = '0';
-
-		unsigned int nextIndex = 0;
-		unsigned int yIndex = 0;
-
-		std::vector<Character> characters;
 
 		for (unsigned char c = 0; c < 128; c++)
 		{
@@ -87,37 +56,29 @@ namespace LWRL
 				std::cout << "Could not load glyph: " + std::to_string(c) + "." << std::endl;
 				continue;
 			}
-			
-			int w = face->glyph->bitmap.width;
-			int h = face->glyph->bitmap.rows;
 
-			unsigned int bitmapLength = w * h * 4;
+			unsigned int bitmapLength = face->glyph->bitmap.rows * face->glyph->bitmap.width * 4;
+			unsigned char* data = new unsigned char[bitmapLength];
 
 			for (int i = 0; i < bitmapLength; i += 4)
 			{
-				data[nextIndex + i + 0] = UCHAR_MAX;
-				data[nextIndex + i + 1] = UCHAR_MAX;
-				data[nextIndex + i + 2] = UCHAR_MAX;
-				data[nextIndex + i + 3] = face->glyph->bitmap.buffer[i / 4];
+				data[i + 0] = UCHAR_MAX;
+				data[i + 1] = UCHAR_MAX;
+				data[i + 2] = UCHAR_MAX;
+				data[i + 3] = face->glyph->bitmap.buffer[i / 4];
 			}
 
-			Character character =
-			{
+			Texture* texture = new Texture(face->glyph->bitmap.width, face->glyph->bitmap.rows, data);
+
+			Character character = {
 				glm::vec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 				glm::vec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
 				face->glyph->advance.x,
-				yIndex
+				texture
 			};
 
-			font->characters.insert(std::pair<char, Character>(c, character));
-			nextIndex += width * h * 4;
-			yIndex += h;
+			font->characters.insert(std::pair<char, Character*>(c, &character));
 		}
-
-		// Now we have all the info we need.
-		Texture* texture = new Texture(width, height, data);
-		spriteRenderer->AddTexture(texture);
-		font->texture = texture;
 
 		return font;
 	}
