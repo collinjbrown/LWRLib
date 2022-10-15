@@ -97,10 +97,10 @@ namespace LWRL
 
 			for (int i = 0; i < bitmapLength; i += 4)
 			{
-				data[i + 0] = face->glyph->bitmap.buffer[(i / 4) + 1];
-				data[i + 1] = face->glyph->bitmap.buffer[(i / 4) + 2];
-				data[i + 2] = face->glyph->bitmap.buffer[(i / 4) + 3];
-				data[i + 3] = face->glyph->bitmap.buffer[(i / 4) + 0];
+				data[i + 0] = UCHAR_MAX;
+				data[i + 1] = UCHAR_MAX;
+				data[i + 2] = UCHAR_MAX;
+				data[i + 3] = face->glyph->bitmap.buffer[(i / 4)];
 			}
 
 			if (bitmapLength == 0) continue;
