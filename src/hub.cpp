@@ -24,10 +24,10 @@ namespace LWRL
 		if (iter != filters.end()) { filters.erase(iter); }
 	}
 
-	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, bool zoom)
+	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale, bool zoom)
 	{
-		if (zoom) textRenderer->RenderText(position, color, text, font, inputStates->zoom);
-		else textRenderer->RenderText(position, color, text, font);
+		if (zoom) textRenderer->RenderText(position, color, text, font, scale, inputStates->zoom);
+		else textRenderer->RenderText(position, color, text, font, scale);
 	}
 
 	void Hub::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)

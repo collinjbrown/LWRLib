@@ -41,12 +41,12 @@ namespace LWRL
 		SpriteRenderer*			spriteRenderer;
 
 		std::vector<Font*>		fonts;
-		int						fontSize = 32;
+		int						fontSize = 64;
 
 	public:
 		Font* AddFont(std::string file);
-		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font);
-		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float zoom);
+		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale);
+		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale, float zoom);
 		TextRenderer(SpriteRenderer* spriteRenderer);
 	};
 }
