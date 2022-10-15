@@ -3,6 +3,34 @@
 
 namespace LWRL
 {
+	void TextRenderer::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font)
+	{
+		float x = position.x;
+
+		for (int i = 0; i < text.size(); i++)
+		{
+			const char c = text[i];
+			Character* character = font->characters[c];
+
+			if (character == nullptr)
+			{
+				x += fontSize / 4.0f;
+				continue;
+			}
+
+			float xPos = x + character->bearing.x;
+			float yPos = position.y - (character->size.y - character->bearing.y);
+
+			float width = character->size.x;
+			float height = character->size.y;
+
+			// spriteRenderer->RenderSprite({ xPos, yPos, position.z }, color, character->texture);
+			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width, height, character->texture);
+
+			x += (character->advance >> 6);
+		}
+	}
+
 	void TextRenderer::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float zoom)
 	{
 		float x = position.x;
