@@ -182,10 +182,10 @@ namespace LWRL
 		const float h = height;
 		const float s = texture->yIndex;
 
-		Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, 0.0, 0.0, w, h, s };
-		Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, 1.0, 0.0, w, h, s };
-		Vertex topLeft{ left, top, pos.z, r, g, b, a, 0.0, 1.0, w, h, s };
-		Vertex topRight{ right, top, pos.z, r, g, b, a, 1.0, 1.0, w, h, s };
+		Vertex bottomLeft{ left, bottom, pos.z, r, g, b, a, 0.0, 1.0, w, h, s };
+		Vertex bottomRight{ right, bottom, pos.z, r, g, b, a, 1.0, 1.0, w, h, s };
+		Vertex topLeft{ left, top, pos.z, r, g, b, a, 0.0, 0.0, w, h, s };
+		Vertex topRight{ right, top, pos.z, r, g, b, a, 1.0, 0.0, w, h, s };
 
 		batch.buffer[batch.index] = { bottomLeft, bottomRight, topLeft };
 		batch.index++;

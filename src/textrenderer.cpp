@@ -14,7 +14,7 @@ namespace LWRL
 
 			if (character == nullptr)
 			{
-				x += fontSize / 3.0f;
+				x += fontSize / 4.0f;
 				continue;
 			}
 
