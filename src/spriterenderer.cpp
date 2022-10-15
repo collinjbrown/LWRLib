@@ -254,7 +254,7 @@ namespace LWRL
 		glEnableVertexAttribArray(1);
 
 		// Texture Coordinates
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, s));
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_TRUE, sizeof(Vertex), (void*)offsetof(Vertex, s));
 		glEnableVertexAttribArray(2);
 
 		// Texture Dimensions
