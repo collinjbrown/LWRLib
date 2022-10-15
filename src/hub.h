@@ -17,8 +17,6 @@
 
 namespace LWRL
 {
-	enum class ScreenAnchor;
-
 	class Hub
 	{
 	private:
