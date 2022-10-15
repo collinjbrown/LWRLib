@@ -24,6 +24,15 @@ namespace LWRL
 		if (iter != filters.end()) { filters.erase(iter); }
 	}
 
+	glm::vec3 Hub::GetAnchorPosition(ScreenAnchor anchor, glm::vec3 prospPosition)
+	{
+		if (anchor == ScreenAnchor::bottomLeft) return inputStates->cameraPosition - glm::vec3(width * inputStates->zoom / 2.0f, height * inputStates->zoom / 2.0f, 0.0f) + (prospPosition * inputStates->zoom);
+		if (anchor == ScreenAnchor::topLeft) return inputStates->cameraPosition - glm::vec3(width * inputStates->zoom / 2.0f, -height * inputStates->zoom / 2.0f, 0.0f) + (prospPosition * inputStates->zoom);
+		if (anchor == ScreenAnchor::bottomRight) return inputStates->cameraPosition + glm::vec3(width * inputStates->zoom / 2.0f, -height * inputStates->zoom / 2.0f, 0.0f) + (prospPosition * inputStates->zoom);
+		if (anchor == ScreenAnchor::topRight) return inputStates->cameraPosition + glm::vec3(width * inputStates->zoom / 2.0f, height * inputStates->zoom / 2.0f, 0.0f) + (prospPosition * inputStates->zoom);
+		if (anchor == ScreenAnchor::center) return inputStates->cameraPosition + (prospPosition * inputStates->zoom);
+	}
+
 	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale, bool zoom)
 	{
 		if (zoom) textRenderer->RenderText(position, color, text, font, scale, inputStates->zoom);

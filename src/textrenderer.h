@@ -11,6 +11,8 @@
 
 namespace LWRL
 {
+	enum class ScreenAnchor { bottomLeft, topLeft, bottomRight, topRight, center };
+
 	struct Character
 	{
 		glm::ivec2	size;
