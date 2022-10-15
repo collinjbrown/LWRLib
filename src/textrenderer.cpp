@@ -12,12 +12,19 @@ namespace LWRL
 			const char c = text[i];
 			Character* character = font->characters[c];
 
+			if (character == nullptr)
+			{
+				x += fontSize / 3.0f;
+				continue;
+			}
+
 			float xPos = x + character->bearing.x;
 			float yPos = position.y - (character->size.y - character->bearing.y);
 
 			float width = character->size.x;
 			float height = character->size.y;
 
+			// spriteRenderer->RenderSprite({ xPos, yPos, position.z }, color, character->texture);
 			spriteRenderer->RenderGlyph({ xPos, yPos, position.z }, color, width, height, character->texture);
 
 			x += (character->advance >> 6);
@@ -41,7 +48,7 @@ namespace LWRL
 			return nullptr;
 		}
 
-		FT_Set_Pixel_Sizes(face, 0, 64);
+		FT_Set_Pixel_Sizes(face, 0, fontSize);
 
 		Font* font = new Font();
 		font->face = face;
@@ -68,16 +75,19 @@ namespace LWRL
 				data[i + 3] = face->glyph->bitmap.buffer[i / 4];
 			}
 
+			if (bitmapLength == 0) continue;
+
 			Texture* texture = new Texture(face->glyph->bitmap.width, face->glyph->bitmap.rows, data);
 
-			Character character = {
+			Character* character = new Character(
 				glm::vec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 				glm::vec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
 				face->glyph->advance.x,
-				texture
-			};
+				texture);
+			
+			spriteRenderer->AddTexture(texture);
 
-			font->characters.insert(std::pair<char, Character*>(c, &character));
+			font->characters.insert(std::pair<char, Character*>(c, character));
 		}
 
 		return font;

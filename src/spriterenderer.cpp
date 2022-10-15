@@ -168,10 +168,10 @@ namespace LWRL
 
 		Batch& batch = batches[bNum];
 
-		const float right = pos.x + (width / 2.0f);
-		const float left = pos.x - (width / 2.0f);
-		const float top = pos.y + (height / 2.0f);
-		const float bottom = pos.y - (height / 2.0f);
+		const float right = pos.x + width;
+		const float left = pos.x;
+		const float top = pos.y + height;
+		const float bottom = pos.y;
 
 		const float r = color.r;
 		const float g = color.g;

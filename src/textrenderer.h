@@ -18,6 +18,14 @@ namespace LWRL
 		FT_Pos		advance;
 
 		Texture*	texture;
+
+		Character(glm::ivec2 size, glm::ivec2 bearing, FT_Pos advance, Texture* texture)
+		{
+			this->size = size;
+			this->bearing = bearing;
+			this->advance = advance;
+			this->texture = texture;
+		}
 	};
 
 	struct Font
@@ -33,6 +41,7 @@ namespace LWRL
 		SpriteRenderer*			spriteRenderer;
 
 		std::vector<Font*>		fonts;
+		int						fontSize = 32;
 
 	public:
 		Font* AddFont(std::string file);
