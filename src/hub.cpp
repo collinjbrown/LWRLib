@@ -24,7 +24,7 @@ namespace LWRL
 		if (iter != filters.end()) { filters.erase(iter); }
 	}
 
-	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font)
+	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, inputStates->zoom)
 	{
 		textRenderer->RenderText(position, color, text, font);
 	}
