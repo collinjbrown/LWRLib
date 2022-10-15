@@ -18,7 +18,7 @@ namespace LWRL
 
 	struct InputSettings
 	{
-		bool				discreteMovement = true;
+		bool				discreteMovement = false;
 		int					tileWidth = 32;
 		float				moveDelay = 0.1f;
 

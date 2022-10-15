@@ -20,8 +20,7 @@ namespace LWRL
 	class Hub
 	{
 	private:
-		int					test = 0;
-		GLFWwindow* window;
+		GLFWwindow*			window;
 		unsigned int		width;
 		unsigned int		height;
 		std::string			title;
@@ -33,8 +32,8 @@ namespace LWRL
 
 		float				lastTimeDT;
 
-		InputSettings* inputSettings;
-		InputStates* inputStates;
+		InputSettings*		inputSettings;
+		InputStates*		inputStates;
 
 		float				windowLeft = 0.0f;
 		float				windowRight = 0.0f;
@@ -49,9 +48,9 @@ namespace LWRL
 		glm::vec4			backgroundColor = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 		std::vector<UTIL::Filter>		filters;
-		SpriteRenderer* spriteRenderer;
-		TextRenderer* textRenderer;
-		InputHandler* inputHandler;
+		SpriteRenderer*					spriteRenderer;
+		TextRenderer*					textRenderer;
+		InputHandler*					inputHandler;
 
 		void CheckFPS();
 		float GetDeltaTime();
