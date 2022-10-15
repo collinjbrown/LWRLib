@@ -82,6 +82,7 @@ namespace LWRL
 		void RemoveFilter(std::string name);
 
 		bool Poll();
+		void HandleInputs();
 		void Update();
 		void Terminate();
 		Hub(int width, int height, std::string title);

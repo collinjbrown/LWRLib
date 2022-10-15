@@ -111,6 +111,13 @@ namespace LWRL
 		return !glfwWindowShouldClose(window);
 	}
 
+	void Hub::HandleInputs()
+	{
+		float deltaTime = GetDeltaTime();
+
+		inputHandler->Update(inputSettings, inputStates, deltaTime);
+	}
+
 	void Hub::Update()
 	{
 		/*
@@ -120,12 +127,8 @@ namespace LWRL
 			swaps the buffers.
 		*/
 
-		float deltaTime = GetDeltaTime();
-
 		CheckFPS();
 		UpdateBorders();
-
-		inputHandler->Update(inputSettings, inputStates, deltaTime);
 
 		glm::vec3 cam = GetCameraPosition();
 		glm::vec3 center = cam + glm::vec3(0.0f, 0.0f, -1.0f);
