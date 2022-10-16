@@ -128,6 +128,11 @@ namespace LWRL
 		*/
 
 		CheckFPS();
+
+		int w, h;
+		glfwGetWindowSize(window, &w, &h);
+		width = w, height = h;
+		glViewport(0, 0, width, height);
 		UpdateBorders();
 
 		glm::vec3 cam = GetCameraPosition();
