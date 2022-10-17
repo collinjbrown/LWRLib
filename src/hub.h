@@ -43,6 +43,7 @@ namespace LWRL
 		float				nearClip = 0.1f;
 		float				farClip = 15000.0f;
 
+		int					camZOffset = -9;
 		unsigned int		fadeDepth = 10;
 		glm::vec4			fadeColor = glm::vec4(0.5f, 0.5f, 0.5f, 0.1f);
 		glm::vec4			backgroundColor = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -68,6 +69,9 @@ namespace LWRL
 		float GetZoom() { return inputStates->zoom; }
 		glm::vec3 GetCameraPosition() { return inputStates->cameraPosition; }
 		glm::vec3 GetAnchorPosition(ScreenAnchor anchor, glm::vec3 prospPosition);
+
+		int GetCamZOffset() { return camZOffset; }
+		void SetCamZOffset(int z) { this->camZOffset = z; }
 
 		glm::vec4 GetWindowBorders() { return glm::vec4(windowLeft, windowRight, windowTop, windowBottom); }
 

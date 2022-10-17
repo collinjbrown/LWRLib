@@ -41,7 +41,7 @@ namespace LWRL
 
 	void Hub::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
-		int depthDifference = (((int)GetCameraPosition().z - 9) - (int)pos.z);
+		int depthDifference = (((int)GetCameraPosition().z + camZOffset) - (int)pos.z);
 
 		if (pos.x + texture->GetWidth() >= windowLeft && pos.x - texture->GetWidth() <= windowRight &&
 			pos.y + texture->GetHeight() >= windowBottom && pos.y - texture->GetHeight() <= windowTop &&
