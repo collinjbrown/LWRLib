@@ -73,6 +73,9 @@ namespace LWRL
 		int GetCamZOffset() { return camZOffset; }
 		void SetCamZOffset(int z) { this->camZOffset = z; }
 
+		unsigned int GetFadeDepth() { return fadeDepth; }
+		void SetFadeDepth(unsigned int fadeDepth) { this->fadeDepth = fadeDepth; }
+
 		glm::vec4 GetWindowBorders() { return glm::vec4(windowLeft, windowRight, windowTop, windowBottom); }
 
 		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale, bool zoom);
