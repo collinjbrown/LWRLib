@@ -35,12 +35,6 @@ namespace LWRL
 		Vertex bottomRight;
 		Vertex bottomLeft;
 	};
-
-	struct Quad
-	{
-		Triangle left;
-		Triangle right;
-	};
 }
 
 #endif
