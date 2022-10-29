@@ -121,7 +121,7 @@ namespace LWRL
 		return font;
 	}
 
-	TextRenderer::TextRenderer(Renderer* spriteRenderer)
+	TextRenderer::TextRenderer(PolyRenderer* spriteRenderer)
 	{
 		this->spriteRenderer = spriteRenderer;
 

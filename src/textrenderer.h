@@ -39,7 +39,7 @@ namespace LWRL
 	{
 	private:
 		FT_Library				library;
-		Renderer*			spriteRenderer;
+		PolyRenderer*			spriteRenderer;
 
 		std::vector<Font*>		fonts;
 		int						fontSize = 128;
@@ -48,7 +48,7 @@ namespace LWRL
 		Font* AddFont(std::string file);
 		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale);
 		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale, float zoom);
-		TextRenderer(Renderer* spriteRenderer);
+		TextRenderer(PolyRenderer* spriteRenderer);
 	};
 }
 
