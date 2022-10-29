@@ -56,7 +56,7 @@ namespace LWRL
 		glm::vec4			backgroundColor = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 		std::vector<UTIL::Filter>		filters;
-		Renderer*					spriteRenderer;
+		PolyRenderer*					spriteRenderer;
 		TextRenderer*					textRenderer;
 		InputHandler*					inputHandler;
 

@@ -1,4 +1,4 @@
-#include "renderer.h"
+#include "polyrenderer.h"
 
 #include <iostream>
 #include <filesystem>
@@ -6,7 +6,7 @@
 
 namespace LWRL
 {
-	void Renderer::UpdateProjection(int width, int height, float zoom, float nearClip, float farClip)
+	void PolyRenderer::UpdateProjection(int width, int height, float zoom, float nearClip, float farClip)
 	{
 		float halfWidth = (width / 2.0f) * zoom;
 		float halfHeight = (height / 2.0f) * zoom;
@@ -14,20 +14,20 @@ namespace LWRL
 		this->projection = glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, nearClip, farClip);
 	}
 
-	Texture* Renderer::AddTexture(std::string file)
+	Texture* PolyRenderer::AddTexture(std::string file)
 	{
 		Texture* texture = new Texture(file, textures.size());
 		textures.push_back(texture);
 		return texture;
 	}
 
-	void Renderer::AddTexture(Texture* texture)
+	void PolyRenderer::AddTexture(Texture* texture)
 	{
 		texture->index = textures.size();
 		textures.push_back(texture);
 	}
 
-	Texture* Renderer::GetTexture(int index)
+	Texture* PolyRenderer::GetTexture(int index)
 	{
 		if (index < textures.size() && index >= 0)
 		{
@@ -38,7 +38,7 @@ namespace LWRL
 		return nullptr;
 	}
 
-	void Renderer::RepairTexture()
+	void PolyRenderer::RepairTexture()
 	{
 		std::vector<Texture*> activeTextures;
 		archtexture->Reset();
@@ -81,7 +81,7 @@ namespace LWRL
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	void Renderer::Flush(const Batch& batch)
+	void PolyRenderer::Flush(const Batch& batch)
 	{
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -89,7 +89,7 @@ namespace LWRL
 		glDrawElements(GL_TRIANGLES, batch.index * 3, GL_UNSIGNED_INT, nullptr);
 	}
 
-	void Renderer::ResetBuffers()
+	void PolyRenderer::ResetBuffers()
 	{
 		bool needsPreparing = false;
 
@@ -116,7 +116,7 @@ namespace LWRL
 		tris = 0;
 	}
 
-	void Renderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
+	void PolyRenderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
 		texture->used = true;
 
@@ -156,7 +156,7 @@ namespace LWRL
 		tris += 2;
 	}
 
-	void Renderer::RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, Texture* texture)
+	void PolyRenderer::RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, Texture* texture)
 	{
 		texture->used = true;
 
@@ -196,7 +196,7 @@ namespace LWRL
 		tris += 2;
 	}
 
-	void Renderer::RenderCube(glm::vec3 cameraForward, glm::vec3 size, glm::vec3 position, UTIL::Quaternion q, glm::vec4 color, Texture* texture)
+	void PolyRenderer::RenderCube(glm::vec3 cameraForward, glm::vec3 size, glm::vec3 position, UTIL::Quaternion q, glm::vec4 color, Texture* texture)
 	{
 		texture->used = true;
 
@@ -321,7 +321,7 @@ namespace LWRL
 		if (d > minDiff) RenderQuad(bottom, texture);
 	}
 
-	void Renderer::RenderQuad(Quad& input, Texture* texture)
+	void PolyRenderer::RenderQuad(Quad& input, Texture* texture)
 	{
 		int bNum = tris / Batch::MAX_TRIS;
 		if (static_cast<unsigned long long>(bNum) + 1 > batches.size())
@@ -340,7 +340,7 @@ namespace LWRL
 		tris += 2;
 	}
 
-	void Renderer::Render()
+	void PolyRenderer::Render()
 	{
 		if (!init)
 		{
@@ -363,7 +363,7 @@ namespace LWRL
 		ResetBuffers();
 	}
 
-	void Renderer::Terminate()
+	void PolyRenderer::Terminate()
 	{
 		for (int i = 0; i < textures.size(); i++)
 		{
@@ -374,7 +374,7 @@ namespace LWRL
 		delete this;
 	}
 
-	Renderer::Renderer() : batches(1), shader("assets/shaders/base.vert", "assets/shaders/base.frag")
+	PolyRenderer::PolyRenderer() : batches(1), shader("assets/shaders/base.vert", "assets/shaders/base.frag")
 	{
 		GLuint IBO;
 
