@@ -2,7 +2,7 @@
 
 namespace LWRL::UTIL
 {
-	Quaternion Slerp(Quaternion l, Quaternion r, float step)
+	static Quaternion Slerp(Quaternion l, Quaternion r, float step)
 	{
 		Quaternion q = { 0, 0, 0, 0 };
 
@@ -33,7 +33,7 @@ namespace LWRL::UTIL
 		return q;
 	}
 
-	float QuaternionDistance(Quaternion l, Quaternion r)
+	static float QuaternionDistance(Quaternion l, Quaternion r)
 	{
 		glm::vec3 ref = { 1.0f, 1.0f, 1.0f };
 		glm::vec3 ori = { 0.0f, 0.0f, 0.0f };
@@ -43,7 +43,7 @@ namespace LWRL::UTIL
 		return glm::length2(refL - refR);
 	}
 
-	void NormalizeQuaternion(Quaternion& q)
+	static void NormalizeQuaternion(Quaternion& q)
 	{
 		float mag = sqrt(q.w * q.w + q.x * q.x + q.y * q.y + q.z * q.z);
 		q.w /= mag;
@@ -52,7 +52,7 @@ namespace LWRL::UTIL
 		q.z /= mag;
 	}
 
-	Quaternion EulerToQuaternion(glm::vec3 e)
+	static Quaternion EulerToQuaternion(glm::vec3 e)
 	{
 		Quaternion q = { 0, 0, 0, 0 };
 		double cy = cos(e.z * 0.5);
@@ -72,7 +72,7 @@ namespace LWRL::UTIL
 		return q;
 	}
 
-	glm::vec3 QuaternionToEuler(Quaternion q)
+	static glm::vec3 QuaternionToEuler(Quaternion q)
 	{
 		glm::vec3 e = { 0, 0, 0 };
 		double sinrCosp = 2 * (q.w * q.x + q.y * q.z);
@@ -96,7 +96,7 @@ namespace LWRL::UTIL
 		return e;
 	}
 
-	glm::vec3 Rotate(glm::vec3 position, Quaternion q)
+	static glm::vec3 Rotate(glm::vec3 position, Quaternion q)
 	{
 		glm::mat3x3 mat = glm::mat3x3(1 - 2 * (q.y * q.y + q.z * q.z), 2 * (q.x * q.y - q.z * q.w), 2 * (q.x * q.z + q.y * q.w),
 			2 * (q.x * q.y + q.z * q.w), 1 - 2 * (q.x * q.x + q.z * q.z), 2 * (q.y * q.z - q.x * q.w),
@@ -105,17 +105,17 @@ namespace LWRL::UTIL
 		return position * mat;
 	}
 
-	glm::vec3 RotateRelative(glm::vec3 relative, glm::vec3 position, Quaternion q)
+	static glm::vec3 RotateRelative(glm::vec3 relative, glm::vec3 position, Quaternion q)
 	{
 		return Rotate(relative - position, q) + relative;
 	}
 
-	glm::vec3 Lerp(glm::vec3 a, glm::vec3 b, float step)
+	static glm::vec3 Lerp(glm::vec3 a, glm::vec3 b, float step)
 	{
 		return (a * (1.0f - step) + (b * step));
 	}
 
-	glm::vec4 ColorLerp(glm::vec4 a, glm::vec4 b, float t)
+	static glm::vec4 ColorLerp(glm::vec4 a, glm::vec4 b, float t)
 	{
 		return glm::vec4(	a.r + (b.r - a.r) * t,
 							a.g + (b.g - a.g) * t,
