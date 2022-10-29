@@ -1,5 +1,5 @@
-#ifndef POLYRENDERER_H
-#define POLYRENDERER_H
+#ifndef RENDERER_H
+#define RENDERER_H
 
 #include <vector>
 #include <array>
@@ -19,7 +19,7 @@ namespace LWRL
 		int index = 0;
 	};
 
-	class PolyRenderer
+	class Renderer
 	{
 	private:
 		bool init = false;
@@ -66,7 +66,7 @@ namespace LWRL
 		void Render();
 		void Terminate();
 
-		PolyRenderer();
+		Renderer();
 	};
 }
 

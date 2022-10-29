@@ -246,7 +246,7 @@ namespace LWRL
 		}
 
 		// And lastly prepare the renderer and input handler.
-		spriteRenderer = new PolyRenderer();
+		spriteRenderer = new Renderer();
 		textRenderer = new TextRenderer(spriteRenderer);
 
 		inputHandler = new InputHandler(window);

@@ -3,7 +3,7 @@
 
 #include <map>
 
-#include "polyrenderer.h"
+#include "renderer.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
