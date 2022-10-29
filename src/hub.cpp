@@ -56,7 +56,7 @@ namespace LWRL
 
 	void Hub::RenderCube(glm::vec3 pos, glm::vec3 size, glm::vec4 color, Texture* texture)
 	{
-		spriteRenderer->RenderCube(inputStates->cameraForward, size, pos, { 1.0f, 0.0f, 0.0f, 0.0f }, color, texture);
+		spriteRenderer->RenderCube(inputStates->cameraForward, size, pos, { 0.0f, 0.0f, 0.0f, 1.0f }, color, texture);
 	}
 
 	Texture* Hub::AddTexture(std::string file)
