@@ -17,6 +17,12 @@
 
 namespace LWRL
 {
+	enum class RenderMode
+	{
+		twoDimensional,
+		threeDimensional
+	};
+
 	class Hub
 	{
 	private:
@@ -24,6 +30,8 @@ namespace LWRL
 		unsigned int		width;
 		unsigned int		height;
 		std::string			title;
+
+		RenderMode			renderMode;
 
 		unsigned int		fps = 0;
 		unsigned int		fpsCount = 0;
@@ -68,7 +76,12 @@ namespace LWRL
 
 		float GetZoom() { return inputStates->zoom; }
 		glm::vec3 GetCameraPosition() { return inputStates->cameraPosition; }
+		glm::vec3 GetCameraForward() { return inputStates->cameraForward; }
+		UTIL::Quaternion GetCameraRotation() { return inputStates->cameraRotation; }
+		UTIL::Quaternion* GetCameraRotationPtr() { return &inputStates->cameraRotation; }
 		glm::vec3 GetAnchorPosition(ScreenAnchor anchor, glm::vec3 prospPosition);
+
+		void SetCameraForward(glm::vec3 forward) { inputStates->cameraForward = forward; }
 
 		int GetCamZOffset() { return camZOffset; }
 		void SetCamZOffset(int z) { this->camZOffset = z; }
@@ -92,7 +105,7 @@ namespace LWRL
 		void HandleInputs();
 		void Update();
 		void Terminate();
-		Hub(int width, int height, std::string title, bool discreteCameraXY, bool discreteCameraZ);
+		Hub(RenderMode renderMode, int width, int height, std::string title, bool discreteCameraXY, bool discreteCameraZ);
 	};
 }
 

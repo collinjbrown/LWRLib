@@ -7,6 +7,7 @@
 #include "archtexture.h"
 #include "shader.h"
 #include "polygons.h"
+#include "util.h"
 
 namespace LWRL
 {
@@ -28,6 +29,11 @@ namespace LWRL
 
 		glm::mat4		view;
 		glm::mat4		projection;
+
+		float nearClip = 0.1f;
+		float farClip = 15000.0f;
+
+		float fieldOfView = 180.0f;
 
 		Archtexture* archtexture;
 		std::vector<Texture*> textures;
@@ -51,6 +57,9 @@ namespace LWRL
 
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
 		void RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, Texture* texture);
+
+		void PrepareCube(glm::vec3 cameraForward, glm::vec3 size, glm::vec3 position, UTIL::Quaternion q, glm::vec4 color, Texture* texture);
+		void PrepareQuad(Quad& input, Texture* texture);
 
 		void UpdateProjection(int width, int height, float zoom, float nearClip, float farClip);
 
