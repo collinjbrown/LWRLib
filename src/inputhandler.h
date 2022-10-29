@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
+#include "util.h"
 
 namespace LWRL
 {
@@ -10,6 +11,9 @@ namespace LWRL
 	{
 		glm::vec2			mousePosition = glm::vec2(0.0f, 0.0f);
 		glm::vec3			cameraPosition = glm::vec3(512.0f, 512.0f, 10.0f);
+		UTIL::Quaternion	cameraRotation = { 1, 0, 0, 0 };
+		glm::vec3			baseCameraRotation = glm::vec3(-0.77f, 0.77f, 0.0f);
+		glm::vec3			cameraForward = { 0.0f, 0.0f, -1.0f };
 
 		float				zoom = 1.5f;
 

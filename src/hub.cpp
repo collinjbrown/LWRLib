@@ -54,6 +54,11 @@ namespace LWRL
 		}
 	}
 
+	void Hub::RenderCube(glm::vec3 pos, glm::vec3 size, glm::vec4 color, Texture* texture)
+	{
+		spriteRenderer->RenderCube(inputStates->cameraForward, size, pos, { 1.0f, 0.0f, 0.0f, 0.0f }, color, texture);
+	}
+
 	Texture* Hub::AddTexture(std::string file)
 	{
 		return spriteRenderer->AddTexture(file);
@@ -135,15 +140,33 @@ namespace LWRL
 		glViewport(0, 0, width, height);
 		UpdateBorders();
 
-		glm::vec3 cam = GetCameraPosition();
-		glm::vec3 center = cam + glm::vec3(0.0f, 0.0f, -1.0f);
-		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
-		spriteRenderer->SetView(glm::lookAt(cam, center, up));
+		if (renderMode == RenderMode::twoDimensional)
+		{
+			glm::vec3 cam = GetCameraPosition();
+			glm::vec3 center = cam + glm::vec3(0.0f, 0.0f, -1.0f);
+			glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+			spriteRenderer->SetView(glm::lookAt(cam, center, up));
+		}
+		else
+		{
+			glm::vec3 cam = inputStates->cameraPosition;
+			glm::vec3 up = UTIL::Rotate(glm::vec3(0.0f, 1.0f, 0.0f), inputStates->cameraRotation);
+			SetCameraForward(UTIL::Rotate(glm::vec3(0.0f, 0.0f, -1.0f), inputStates->cameraRotation));
+			glm::vec3 center = inputStates->cameraPosition + inputStates->cameraForward;
+			spriteRenderer->SetView(glm::lookAt(cam, center, up));
+			UTIL::NormalizeQuaternion(inputStates->cameraRotation);
+		}
 
 		spriteRenderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);
 
 		glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		if (renderMode == RenderMode::threeDimensional)
+		{
+			glClearDepth(1.0);
+			glClear(GL_DEPTH_BUFFER_BIT);
+		}
 
 		spriteRenderer->Render();
 
@@ -168,9 +191,11 @@ namespace LWRL
 		delete this;
 	}
 
-	Hub::Hub(int width, int height, std::string title, bool discreteCameraXY, bool discreteCameraZ)
+	Hub::Hub(RenderMode renderMode, int width, int height, std::string title, bool discreteCameraXY, bool discreteCameraZ)
 	{
 		// Here, we just make sure to copy over all the important variables.
+		this->renderMode = renderMode;
+
 		this->width = width;
 		this->height = height;
 		this->title = title;
@@ -213,8 +238,15 @@ namespace LWRL
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		if (renderMode == RenderMode::threeDimensional)
+		{
+			glCullFace(GL_BACK);
+			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LESS);
+		}
+
 		// And lastly prepare the renderer and input handler.
-		spriteRenderer = new SpriteRenderer();
+		spriteRenderer = new PolyRenderer();
 		textRenderer = new TextRenderer(spriteRenderer);
 
 		inputHandler = new InputHandler(window);
