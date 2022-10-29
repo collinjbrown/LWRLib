@@ -38,9 +38,8 @@ namespace LWRL
 			}
 			else
 			{
-				states->cameraPosition = glm::vec3( (int)(states->cameraPosition.x / settings->tileWidth) * settings->tileWidth,
-													(int)(states->cameraPosition.y / settings->tileWidth) * settings->tileWidth,
-													(int)states->cameraPosition.z);
+				states->cameraPosition.x = (int)(states->cameraPosition.x / settings->tileWidth) * settings->tileWidth;
+				states->cameraPosition.y = (int)(states->cameraPosition.y / settings->tileWidth) * settings->tileWidth;
 				states->sumXYMoveTime += deltaTime;
 			}
 		}
@@ -61,9 +60,7 @@ namespace LWRL
 			}
 			else
 			{
-				states->cameraPosition = glm::vec3(	(int)(states->cameraPosition.x / settings->tileWidth) * settings->tileWidth,
-													(int)(states->cameraPosition.y / settings->tileWidth) * settings->tileWidth,
-													(int)states->cameraPosition.z);
+				states->cameraPosition.z = (int)states->cameraPosition.z;
 
 				states->sumZMoveTime += deltaTime;
 			}
