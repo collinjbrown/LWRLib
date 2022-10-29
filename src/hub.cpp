@@ -54,11 +54,6 @@ namespace LWRL
 		}
 	}
 
-	void Hub::RenderCube(glm::vec3 pos, glm::vec3 size, glm::vec4 color, Texture* texture)
-	{
-		spriteRenderer->RenderCube(inputStates->cameraForward, size, pos, { 0.0f, 0.0f, 0.0f, 1.0f }, color, texture);
-	}
-
 	Texture* Hub::AddTexture(std::string file)
 	{
 		return spriteRenderer->AddTexture(file);
@@ -246,7 +241,7 @@ namespace LWRL
 		}
 
 		// And lastly prepare the renderer and input handler.
-		spriteRenderer = new Renderer();
+		spriteRenderer = new SpriteRenderer();
 		textRenderer = new TextRenderer(spriteRenderer);
 
 		inputHandler = new InputHandler(window);

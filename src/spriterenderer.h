@@ -1,5 +1,5 @@
-#ifndef RENDERER_H
-#define RENDERER_H
+#ifndef SPRITERENDERER_H
+#define SPRITERENDERER_H
 
 #include <vector>
 #include <array>
@@ -19,7 +19,7 @@ namespace LWRL
 		int index = 0;
 	};
 
-	class Renderer
+	class SpriteRenderer
 	{
 	private:
 		bool init = false;
@@ -58,15 +58,15 @@ namespace LWRL
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
 		void RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, Texture* texture);
 
-		void RenderCube(glm::vec3 cameraForward, glm::vec3 size, glm::vec3 position, UTIL::Quaternion q, glm::vec4 color, Texture* texture);
-		void RenderQuad(Quad& input, Texture* texture);
+		void PrepareCube(glm::vec3 cameraForward, glm::vec3 size, glm::vec3 position, UTIL::Quaternion q, glm::vec4 color, Texture* texture);
+		void PrepareQuad(Quad& input, Texture* texture);
 
 		void UpdateProjection(int width, int height, float zoom, float nearClip, float farClip);
 
 		void Render();
 		void Terminate();
 
-		Renderer();
+		SpriteRenderer();
 	};
 }
 

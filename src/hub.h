@@ -56,7 +56,7 @@ namespace LWRL
 		glm::vec4			backgroundColor = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 		std::vector<UTIL::Filter>		filters;
-		Renderer*					spriteRenderer;
+		SpriteRenderer*					spriteRenderer;
 		TextRenderer*					textRenderer;
 		InputHandler*					inputHandler;
 
@@ -92,7 +92,6 @@ namespace LWRL
 
 		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale, bool zoom);
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
-		void RenderCube(glm::vec3 pos, glm::vec3 size, glm::vec4 color, Texture* texture);
 
 		Texture* AddTexture(std::string file);
 		Font* AddFont(std::string file);
