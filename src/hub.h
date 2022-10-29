@@ -11,17 +11,12 @@
 #include <string>
 #include <map>
 
+#include "util.h"
 #include "textrenderer.h"
 #include "inputhandler.h"
 
 namespace LWRL
 {
-	enum class RenderMode
-	{
-		twoDimensional,
-		threeDimensional
-	};
-
 	class Hub
 	{
 	private:
@@ -29,8 +24,6 @@ namespace LWRL
 		unsigned int		width;
 		unsigned int		height;
 		std::string			title;
-
-		RenderMode			renderMode;
 
 		unsigned int		fps = 0;
 		unsigned int		fpsCount = 0;
@@ -56,7 +49,7 @@ namespace LWRL
 		glm::vec4			backgroundColor = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
 		std::vector<UTIL::Filter>		filters;
-		PolyRenderer*					spriteRenderer;
+		SpriteRenderer*					spriteRenderer;
 		TextRenderer*					textRenderer;
 		InputHandler*					inputHandler;
 
@@ -75,12 +68,7 @@ namespace LWRL
 
 		float GetZoom() { return inputStates->zoom; }
 		glm::vec3 GetCameraPosition() { return inputStates->cameraPosition; }
-		glm::vec3 GetCameraForward() { return inputStates->cameraForward; }
-		UTIL::Quaternion GetCameraRotation() { return inputStates->cameraRotation; }
-		UTIL::Quaternion* GetCameraRotationPtr() { return &inputStates->cameraRotation; }
 		glm::vec3 GetAnchorPosition(ScreenAnchor anchor, glm::vec3 prospPosition);
-
-		void SetCameraForward(glm::vec3 forward) { inputStates->cameraForward = forward; }
 
 		int GetCamZOffset() { return camZOffset; }
 		void SetCamZOffset(int z) { this->camZOffset = z; }
@@ -92,7 +80,6 @@ namespace LWRL
 
 		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale, bool zoom);
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
-		void RenderCube(glm::vec3 pos, glm::vec3 size, glm::vec4 color, Texture* texture);
 
 		Texture* AddTexture(std::string file);
 		Font* AddFont(std::string file);
@@ -105,7 +92,7 @@ namespace LWRL
 		void HandleInputs();
 		void Update();
 		void Terminate();
-		Hub(RenderMode renderMode, int width, int height, std::string title, bool discreteCameraXY, bool discreteCameraZ);
+		Hub(int width, int height, std::string title, bool discreteCameraXY, bool discreteCameraZ);
 	};
 }
 
