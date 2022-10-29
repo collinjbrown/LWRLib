@@ -11,6 +11,7 @@
 #include <string>
 #include <map>
 
+#include "util.h"
 #include "textrenderer.h"
 #include "inputhandler.h"
 
