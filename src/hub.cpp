@@ -149,9 +149,10 @@ namespace LWRL
 			SetCameraForward(UTIL::Rotate(glm::vec3(0.0f, 0.0f, -1.0f), inputStates->cameraRotation));
 			glm::vec3 center = inputStates->cameraPosition + inputStates->cameraForward;
 			spriteRenderer->SetView(glm::lookAt(cam, center, up));
-			spriteRenderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);
 			UTIL::NormalizeQuaternion(inputStates->cameraRotation);
 		}
+
+		spriteRenderer->UpdateProjection(width, height, inputStates->zoom, nearClip, farClip);
 
 		glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 		glClear(GL_COLOR_BUFFER_BIT);
