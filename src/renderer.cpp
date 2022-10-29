@@ -1,4 +1,4 @@
-#include "spriterenderer.h"
+#include "renderer.h"
 
 #include <iostream>
 #include <filesystem>
@@ -6,7 +6,7 @@
 
 namespace LWRL
 {
-	void SpriteRenderer::UpdateProjection(int width, int height, float zoom, float nearClip, float farClip)
+	void Renderer::UpdateProjection(int width, int height, float zoom, float nearClip, float farClip)
 	{
 		float halfWidth = (width / 2.0f) * zoom;
 		float halfHeight = (height / 2.0f) * zoom;
@@ -14,20 +14,20 @@ namespace LWRL
 		this->projection = glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, nearClip, farClip);
 	}
 
-	Texture* SpriteRenderer::AddTexture(std::string file)
+	Texture* Renderer::AddTexture(std::string file)
 	{
 		Texture* texture = new Texture(file, textures.size());
 		textures.push_back(texture);
 		return texture;
 	}
 
-	void SpriteRenderer::AddTexture(Texture* texture)
+	void Renderer::AddTexture(Texture* texture)
 	{
 		texture->index = textures.size();
 		textures.push_back(texture);
 	}
 
-	Texture* SpriteRenderer::GetTexture(int index)
+	Texture* Renderer::GetTexture(int index)
 	{
 		if (index < textures.size() && index >= 0)
 		{
@@ -38,7 +38,7 @@ namespace LWRL
 		return nullptr;
 	}
 
-	void SpriteRenderer::RepairTexture()
+	void Renderer::RepairTexture()
 	{
 		std::vector<Texture*> activeTextures;
 		archtexture->Reset();
@@ -81,7 +81,7 @@ namespace LWRL
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	void SpriteRenderer::Flush(const Batch& batch)
+	void Renderer::Flush(const Batch& batch)
 	{
 		glBindVertexArray(VAO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -89,7 +89,7 @@ namespace LWRL
 		glDrawElements(GL_TRIANGLES, batch.index * 3, GL_UNSIGNED_INT, nullptr);
 	}
 
-	void SpriteRenderer::ResetBuffers()
+	void Renderer::ResetBuffers()
 	{
 		bool needsPreparing = false;
 
@@ -116,7 +116,7 @@ namespace LWRL
 		tris = 0;
 	}
 
-	void SpriteRenderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
+	void Renderer::RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture)
 	{
 		texture->used = true;
 
@@ -156,7 +156,7 @@ namespace LWRL
 		tris += 2;
 	}
 
-	void SpriteRenderer::RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, Texture* texture)
+	void Renderer::RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, Texture* texture)
 	{
 		texture->used = true;
 
@@ -196,7 +196,7 @@ namespace LWRL
 		tris += 2;
 	}
 
-	void SpriteRenderer::PrepareCube(glm::vec3 cameraForward, glm::vec3 size, glm::vec3 position, UTIL::Quaternion q, glm::vec4 color, Texture* texture)
+	void Renderer::RenderCube(glm::vec3 cameraForward, glm::vec3 size, glm::vec3 position, UTIL::Quaternion q, glm::vec4 color, Texture* texture)
 	{
 		texture->used = true;
 
@@ -313,15 +313,15 @@ namespace LWRL
 			}
 		};
 
-		if (f > minDiff) PrepareQuad(front, texture);
-		if (l > minDiff) PrepareQuad(left, texture);
-		if (b > minDiff) PrepareQuad(back, texture);
-		if (r > minDiff) PrepareQuad(right, texture);
-		if (u > minDiff) PrepareQuad(top, texture);
-		if (d > minDiff) PrepareQuad(bottom, texture);
+		if (f > minDiff) RenderQuad(front, texture);
+		if (l > minDiff) RenderQuad(left, texture);
+		if (b > minDiff) RenderQuad(back, texture);
+		if (r > minDiff) RenderQuad(right, texture);
+		if (u > minDiff) RenderQuad(top, texture);
+		if (d > minDiff) RenderQuad(bottom, texture);
 	}
 
-	void SpriteRenderer::PrepareQuad(Quad& input, Texture* texture)
+	void Renderer::RenderQuad(Quad& input, Texture* texture)
 	{
 		int bNum = tris / Batch::MAX_TRIS;
 		if (static_cast<unsigned long long>(bNum) + 1 > batches.size())
@@ -340,7 +340,7 @@ namespace LWRL
 		tris += 2;
 	}
 
-	void SpriteRenderer::Render()
+	void Renderer::Render()
 	{
 		if (!init)
 		{
@@ -363,7 +363,7 @@ namespace LWRL
 		ResetBuffers();
 	}
 
-	void SpriteRenderer::Terminate()
+	void Renderer::Terminate()
 	{
 		for (int i = 0; i < textures.size(); i++)
 		{
@@ -374,7 +374,7 @@ namespace LWRL
 		delete this;
 	}
 
-	SpriteRenderer::SpriteRenderer() : batches(1), shader("assets/shaders/base.vert", "assets/shaders/base.frag")
+	Renderer::Renderer() : batches(1), shader("assets/shaders/base.vert", "assets/shaders/base.frag")
 	{
 		GLuint IBO;
 
