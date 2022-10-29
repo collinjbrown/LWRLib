@@ -4,10 +4,10 @@
 #include <vector>
 #include <array>
 
-#include "util.h"
 #include "archtexture.h"
 #include "shader.h"
 #include "polygons.h"
+#include "util.h"
 
 namespace LWRL
 {
