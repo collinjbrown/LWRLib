@@ -44,7 +44,7 @@ namespace LWRL::UTIL
 		float strength;
 	};
 
-	glm::vec4 ColorLerp(glm::vec4 a, glm::vec4 b, float t);
+	static glm::vec4 ColorLerp(glm::vec4 a, glm::vec4 b, float t);
 
 	static Quaternion Slerp(Quaternion q, Quaternion r, float step);
 	static float QuaternionDistance(Quaternion l, Quaternion r);
