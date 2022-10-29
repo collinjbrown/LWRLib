@@ -13,22 +13,19 @@ namespace LWRL
 		bool zoomIn = (glfwGetKey(window, zoomInKey) == GLFW_PRESS);
 		bool zoomOut = ((glfwGetKey(window, zoomOutKey) == GLFW_PRESS) && !zoomIn);
 
-		if (!settings->discreteMovement)
+		if (!settings->discreteXY)
 		{
 			if (moveUp) states->cameraPosition.y += (settings->cameraSpeedXY * states->zoom) * deltaTime;
 			else if (moveDown) states->cameraPosition.y -= (settings->cameraSpeedXY * states->zoom) * deltaTime;
 
 			if (moveRight) states->cameraPosition.x += (settings->cameraSpeedXY * states->zoom) * deltaTime;
 			else if (moveLeft) states->cameraPosition.x -= (settings->cameraSpeedXY * states->zoom) * deltaTime;
-
-			if (moveIn) states->cameraPosition.z -= (settings->cameraSpeedZ * states->zoom) * deltaTime;
-			else if (moveOut) states->cameraPosition.z += (settings->cameraSpeedZ * states->zoom) * deltaTime;
 		}
 		else
 		{
-			if (states->sumMoveTime >= settings->moveDelay)
+			if (states->sumXYMoveTime >= settings->moveDelay)
 			{
-				states->sumMoveTime = 0.0f;
+				states->sumXYMoveTime = 0.0f;
 
 				if (moveUp) states->cameraPosition.y += settings->tileWidth;
 				else if (moveDown) states->cameraPosition.y -= settings->tileWidth;
@@ -44,7 +41,31 @@ namespace LWRL
 				states->cameraPosition = glm::vec3( (int)(states->cameraPosition.x / settings->tileWidth) * settings->tileWidth,
 													(int)(states->cameraPosition.y / settings->tileWidth) * settings->tileWidth,
 													(int)states->cameraPosition.z);
-				states->sumMoveTime += deltaTime;
+				states->sumXYMoveTime += deltaTime;
+			}
+		}
+
+		if (!settings->discreteZ)
+		{
+			if (moveIn) states->cameraPosition.z -= (settings->cameraSpeedZ * states->zoom) * deltaTime;
+			else if (moveOut) states->cameraPosition.z += (settings->cameraSpeedZ * states->zoom) * deltaTime;
+		}
+		else
+		{
+			if (states->sumZMoveTime >= settings->moveDelay)
+			{
+				states->sumZMoveTime = 0.0f;
+
+				if (moveIn) states->cameraPosition.z -= 1;
+				else if (moveOut) states->cameraPosition.z += 1;
+			}
+			else
+			{
+				states->cameraPosition = glm::vec3(	(int)(states->cameraPosition.x / settings->tileWidth) * settings->tileWidth,
+													(int)(states->cameraPosition.y / settings->tileWidth) * settings->tileWidth,
+													(int)states->cameraPosition.z);
+
+				states->sumZMoveTime += deltaTime;
 			}
 		}
 

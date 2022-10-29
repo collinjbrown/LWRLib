@@ -168,7 +168,7 @@ namespace LWRL
 		delete this;
 	}
 
-	Hub::Hub(int width, int height, std::string title, bool discreteCameraMovement)
+	Hub::Hub(int width, int height, std::string title, bool discreteCameraXY, bool discreteCameraZ)
 	{
 		// Here, we just make sure to copy over all the important variables.
 		this->width = width;
@@ -218,7 +218,7 @@ namespace LWRL
 		textRenderer = new TextRenderer(spriteRenderer);
 
 		inputHandler = new InputHandler(window);
-		inputSettings = new InputSettings(discreteCameraMovement);
+		inputSettings = new InputSettings(discreteCameraXY, discreteCameraZ);
 		inputStates = new InputStates();
 	}
 }
