@@ -92,7 +92,7 @@ namespace LWRL
 		void HandleInputs();
 		void Update();
 		void Terminate();
-		Hub(int width, int height, std::string title);
+		Hub(int width, int height, std::string title, bool discreteCameraMovement);
 	};
 }
 

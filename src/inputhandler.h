@@ -14,11 +14,12 @@ namespace LWRL
 		float				zoom = 1.5f;
 
 		float				sumMoveTime = 0.0f;
+		float				sumZoomTime = 0.0f;
 	};
 
 	struct InputSettings
 	{
-		bool				discreteMovement = false;
+		bool				discreteMovement;
 		int					tileWidth = 32;
 		float				moveDelay = 0.1f;
 
@@ -27,6 +28,11 @@ namespace LWRL
 		float				minZoom = 0.1f;
 		float				maxZoom = 2.55f;
 		float				zoomSpeed = 0.8f;
+
+		InputSettings(bool discreteMovement)
+		{
+			this->discreteMovement = discreteMovement;
+		}
 	};
 
 	class InputHandler
