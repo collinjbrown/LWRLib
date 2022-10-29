@@ -44,19 +44,19 @@ namespace LWRL::UTIL
 		float strength;
 	};
 
-	glm::vec4 ColorLerp(glm::vec4 a, glm::vec4 b, float t);
+	static glm::vec4 ColorLerp(glm::vec4 a, glm::vec4 b, float t);
 
-	Quaternion Slerp(Quaternion q, Quaternion r, float step);
-	float QuaternionDistance(Quaternion l, Quaternion r);
+	static Quaternion Slerp(Quaternion q, Quaternion r, float step);
+	static float QuaternionDistance(Quaternion l, Quaternion r);
 
-	void NormalizeQuaternion(Quaternion& q);
-	Quaternion EulerToQuaternion(glm::vec3 e);
-	glm::vec3 QuaternionToEuler(Quaternion q);
+	static void NormalizeQuaternion(Quaternion& q);
+	static Quaternion EulerToQuaternion(glm::vec3 e);
+	static glm::vec3 QuaternionToEuler(Quaternion q);
 
-	glm::vec3 RotateRelative(glm::vec3 relative, glm::vec3 position, Quaternion q);
-	glm::vec3 Rotate(glm::vec3 position, Quaternion q);
+	static glm::vec3 RotateRelative(glm::vec3 relative, glm::vec3 position, Quaternion q);
+	static glm::vec3 Rotate(glm::vec3 position, Quaternion q);
 
-	glm::vec3 Lerp(glm::vec3 a, glm::vec3 b, float step);
+	static glm::vec3 Lerp(glm::vec3 a, glm::vec3 b, float step);
 }
 
 #endif
