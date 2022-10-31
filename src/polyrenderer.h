@@ -58,9 +58,6 @@ namespace LWRL
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
 		void RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, Texture* texture);
 
-		void RenderCube(glm::vec3 cameraForward, glm::vec3 size, glm::vec3 position, UTIL::Quaternion q, glm::vec4 color, Texture* texture);
-		void RenderQuad(Quad& input, Texture* texture);
-
 		void UpdateProjection(int width, int height, float zoom, float nearClip, float farClip);
 
 		void Render();
