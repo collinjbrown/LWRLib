@@ -44,7 +44,7 @@ namespace LWRL
 		float				farClip = 15000.0f;
 
 		int					camZOffset = -9;
-		unsigned int		fadeDepth = 10;
+		unsigned int		fadeDepth = 5;
 		glm::vec4			fadeColor = glm::vec4(0.5f, 0.5f, 0.5f, 0.1f);
 		glm::vec4			backgroundColor = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
 
