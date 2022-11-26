@@ -33,6 +33,16 @@ namespace LWRL
 		if (anchor == ScreenAnchor::center) return inputStates->cameraPosition + (prospPosition * inputStates->zoom);
 	}
 
+	Quad Hub::GenerateQuad(glm::vec3 pos, glm::vec4 color, Texture* texture)
+	{
+		return spriteRenderer->GenerateQuad(pos, color, texture);
+	}
+
+	void Hub::RenderQuad(Quad quad, Texture* texture)
+	{
+		spriteRenderer->RenderQuad(quad, texture);
+	}
+
 	void Hub::RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale, bool zoom)
 	{
 		if (zoom) textRenderer->RenderText(position, color, text, font, scale, inputStates->zoom);

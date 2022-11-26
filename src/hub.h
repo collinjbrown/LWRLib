@@ -78,6 +78,9 @@ namespace LWRL
 
 		glm::vec4 GetWindowBorders() { return glm::vec4(windowLeft, windowRight, windowTop, windowBottom); }
 
+		Quad GenerateQuad(glm::vec3 pos, glm::vec4 color, Texture* texture);
+		void RenderQuad(Quad quad, Texture* texture);
+
 		void RenderText(glm::vec3 position, glm::vec4 color, std::string text, Font* font, float scale, bool zoom);
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
 

@@ -49,7 +49,10 @@ namespace LWRL
 
 		void SetView(glm::mat4 view) { this->view = view; }
 
+		Quad GenerateQuad(glm::vec3 pos, glm::vec4 color, Texture* texture);
+
 		void RenderSprite(glm::vec3 pos, glm::vec4 color, Texture* texture);
+		void RenderQuad(Quad quad, Texture* texture);
 		void RenderGlyph(glm::vec3 pos, glm::vec4 color, float width, float height, Texture* texture);
 
 		void UpdateProjection(int width, int height, float zoom, float nearClip, float farClip);
